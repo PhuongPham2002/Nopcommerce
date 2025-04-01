@@ -1,13 +1,18 @@
 package commons;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+
 
 /*
 BaseTest thường sẽ chứa:
@@ -17,6 +22,13 @@ Các method hỗ trợ như getDriver(), closeBrowser(), v.v.
  */
 public class BaseTest {
     WebDriver driver;
+    protected final Logger log;
+    public BaseTest(){
+        log = LogManager.getLogger(getClass());
+    }
+    public WebDriver getDriver(){
+        return driver;
+    }
     public WebDriver getBrowserDriver(String browserName, String url) {
         BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
 
@@ -61,7 +73,7 @@ public class BaseTest {
                browserDriverName ="edgedriver";
            } else {browserDriverName ="safaridriver";}
 
-           if (osName.contains("windown")){
+           if (osName.contains("window")){
                cmd = "taskkill /F /FI \"IMAGENAME eq " + browserDriverName + "*\"";
            } else {
                cmd = "pkill " + browserDriverName;
@@ -82,11 +94,35 @@ public class BaseTest {
         }
     }
 
+
+
     public int generateRandomNumber() {
         Random rand = new Random();
         int upperLimit = 999;
         int lowerLimit = 9;
         return rand.nextInt(lowerLimit,upperLimit);
+    }
+
+    @BeforeSuite
+    public void deleteFileInReport() {
+        deleteAllFileInFolder("allure-results");
+    }
+
+    public void deleteAllFileInFolder(String folderName) {
+        try {
+            String pathFolderDownload = GlobalConstants.PROJECT_PATH +  File.separator+ folderName;
+            File file = new File(pathFolderDownload);
+            File[] listOfFiles = file.listFiles();
+            if (listOfFiles.length != 0) {
+                for (int i = 0; i < listOfFiles.length; i++) {
+                    if (listOfFiles[i].isFile() && !listOfFiles[i].getName().equals("environment.properties")) {
+                        new File(listOfFiles[i].toString()).delete();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
+        }
     }
 
 }

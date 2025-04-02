@@ -12,13 +12,13 @@ public class RegisterPageObject extends BasePage {
         this.driver = driver;
     }
 
+
+
     @Step("Click register button ")
     public AccountPageObject clickRegisterButton() {
         waitForElementClickable(driver, RegisterPageUI.REGISTER_BUTTON);
         clickElement(driver,RegisterPageUI.REGISTER_BUTTON);
         return PageGenerator.getAccountPage(driver);
-
-
     }
 
     @Step("Get firstname required message")
@@ -110,5 +110,16 @@ public class RegisterPageObject extends BasePage {
     public String getMismatchedPasswordMessage() {
         waitForElementVisible(driver,RegisterPageUI.MISMATCHED_CONFIRM_PASSWORD);
         return getElementText(driver,RegisterPageUI.MISMATCHED_CONFIRM_PASSWORD);
+    }
+
+    public void fillRegisterForm(String firstname, String lastname, String emailAddress, String company, String password, String confirmPassword) {
+        checkGenderRadio();
+        enterFirstnameTextbox(firstname);
+        enterLastnameTextbox(lastname);
+        enterEmailAddressTextbox(emailAddress);
+        enterCompanyNameTextbox(company);
+        checkNewletterCheckbox();
+        enterPasswordTextbox(password);
+        enterConfirmPasswordTextbox(confirmPassword);
     }
 }

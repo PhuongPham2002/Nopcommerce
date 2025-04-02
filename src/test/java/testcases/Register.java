@@ -54,34 +54,24 @@ public class Register extends BaseTest {
     }
     @Test
     public void TC02_Register_InvalidEmail() throws InterruptedException {
-        registerPage.checkGenderRadio();
-
-        log.info("Enter valid firstname: "+firstName);
-        registerPage.enterFirstnameTextbox(firstName);
-
-        log.info("Enter valid lastname: "+lastName);
-        registerPage.enterLastnameTextbox(lastName);
-
-        log.info("Enter invalid email address: "+invalidEmail);
-        registerPage.enterEmailAddressTextbox(invalidEmail);
-
-
-        log.info("Enter valid company: "+companyName);
-        registerPage.enterCompanyNameTextbox(companyName);
-
-        registerPage.checkNewletterCheckbox();
-
-        log.info("Enter valid password: "+password);
-        registerPage.enterPasswordTextbox(password);
-
-
-        log.info("Enter correct confirm password: "+password);
-        registerPage.enterConfirmPasswordTextbox(password);
-
-
+        registerPage.fillRegisterForm(firstName,lastName,invalidEmail,companyName,password,password);
+//        registerPage.checkGenderRadio();
+//        log.info("Enter valid firstname: "+firstName);
+//        registerPage.enterFirstnameTextbox(firstName);
+//        log.info("Enter valid lastname: "+lastName);
+//        registerPage.enterLastnameTextbox(lastName);
+//        log.info("Enter invalid email address: "+invalidEmail);
+//        registerPage.enterEmailAddressTextbox(invalidEmail);
+//        log.info("Enter valid company: "+companyName);
+//        registerPage.enterCompanyNameTextbox(companyName);
+//        registerPage.checkNewletterCheckbox();
+//        log.info("Enter valid password: "+password);
+//        registerPage.enterPasswordTextbox(password);
+//        log.info("Enter correct confirm password: "+password);
+//        registerPage.enterConfirmPasswordTextbox(password);
         registerPage.clickRegisterButton();
 
-        log.info("Show error message: Please enter a valid email address");
+        log.info("Assert Error Message");
         Assert.assertEquals(registerPage.getInvalidRegisterEmailMessage(),"Please enter a valid email address.");
         Thread.sleep(2000);
 
@@ -95,18 +85,20 @@ public class Register extends BaseTest {
     @Test
     public void TC03_Register_ValidInfo() throws InterruptedException {
 
-        Thread.sleep(5000);
-        registerPage.checkGenderRadio();
-        registerPage.enterFirstnameTextbox(firstName);
-        registerPage.enterLastnameTextbox(lastName);
-        registerPage.enterEmailAddressTextbox(emailAddress);
+//        Thread.sleep(5000);
+//        registerPage.checkGenderRadio();
+//        registerPage.enterFirstnameTextbox(firstName);
+//        registerPage.enterLastnameTextbox(lastName);
+//        registerPage.enterEmailAddressTextbox(emailAddress);
+//        existedEmail=registerPage.getRegisteredEmailAddress();
+//        registerPage.enterCompanyNameTextbox(companyName);
+//        registerPage.checkNewletterCheckbox();
+//        registerPage.enterPasswordTextbox(password);
+//        registerPage.enterConfirmPasswordTextbox(password);
+        registerPage.fillRegisterForm(firstName,lastName,emailAddress,companyName,password,password);
         existedEmail=registerPage.getRegisteredEmailAddress();
-        registerPage.enterCompanyNameTextbox(companyName);
-        registerPage.checkNewletterCheckbox();
-        registerPage.enterPasswordTextbox(password);
-        registerPage.enterConfirmPasswordTextbox(password);
         accountPage = registerPage.clickRegisterButton();
-        log.info("Show successful message: Your registration completed");
+        log.info("Assert successful message");
         Assert.assertEquals(accountPage.getSuccessfulRegisterMessage(),"Your registration completed");
         homePage = accountPage.clickLogoutButton();
         registerPage = homePage.clickRegisterLink();
@@ -117,43 +109,21 @@ public class Register extends BaseTest {
     @Test
     public void TC04_Register_ExistedEmail() throws InterruptedException {
         Thread.sleep(5000);
-        registerPage.checkGenderRadio();
-        registerPage.enterFirstnameTextbox(firstName);
-        registerPage.enterLastnameTextbox(lastName);
-        registerPage.enterEmailAddressTextbox(existedEmail);
-        existedEmail=registerPage.getRegisteredEmailAddress();
-        registerPage.enterCompanyNameTextbox(companyName);
-        registerPage.checkNewletterCheckbox();
-        registerPage.enterPasswordTextbox(password);
-        registerPage.enterConfirmPasswordTextbox(password);
+        registerPage.fillRegisterForm(firstName,lastName,existedEmail,companyName,password,password);
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getExistedEmailMessage(),"The specified email already exists");
     }
     @Test
     public void TC05_Register_InvalidPassword() throws InterruptedException {
         Thread.sleep(5000);
-        registerPage.checkGenderRadio();
-        registerPage.enterFirstnameTextbox(firstName);
-        registerPage.enterLastnameTextbox(lastName);
-        registerPage.enterEmailAddressTextbox(emailAddress);
-        registerPage.enterCompanyNameTextbox(companyName);
-        registerPage.checkNewletterCheckbox();
-        registerPage.enterPasswordTextbox(invalidPassword);
-        registerPage.enterConfirmPasswordTextbox(invalidPassword);
+        registerPage.fillRegisterForm(firstName,lastName,existedEmail,companyName,invalidPassword,password);
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getInvalidPasswordMessage(),"Password must meet the following rules: must have at least 6 characters and not greater than 64 characters");
 
     }
     @Test
     public void TC06_Register_MismatchedConfirmPassword() {
-        registerPage.checkGenderRadio();
-        registerPage.enterFirstnameTextbox(firstName);
-        registerPage.enterLastnameTextbox(lastName);
-        registerPage.enterEmailAddressTextbox(emailAddress);
-        registerPage.enterCompanyNameTextbox(companyName);
-        registerPage.checkNewletterCheckbox();
-        registerPage.enterPasswordTextbox(password);
-        registerPage.enterConfirmPasswordTextbox(invalidPassword);
+        registerPage.fillRegisterForm(firstName,lastName,existedEmail,companyName,invalidPassword,password);
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getMismatchedPasswordMessage(), "The password and confirmation password do not match.");
     }

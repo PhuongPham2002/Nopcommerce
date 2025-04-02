@@ -15,6 +15,7 @@
         <testNG.version>7.10.2</testNG.version>
         <allureReport.version>2.29.1</allureReport.version>
         <log4j.version>2.24.1</log4j.version>
+        <aspectj.version>1.9.20</aspectj.version>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -42,6 +43,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
@@ -78,9 +85,9 @@
                     </suiteXmlFiles>
 
                     <!-- Argument -->
-                    <!--argLine>
+                    <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                    </argLine> -->
+                    </argLine>
                 </configuration>
 
             </plugin>

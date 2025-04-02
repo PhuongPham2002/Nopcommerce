@@ -3,6 +3,7 @@
 <suite name="NopcommerceAutomationTest">
     <listeners>
         <listener class-name="commons.AllureTestListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
     <test name="Regression Test">
         <parameter name="browser" value="chrome">

@@ -12,80 +12,25 @@ public class RegisterPageObject extends BasePage {
         this.driver = driver;
     }
 
-
-
-    @Step("Click register button ")
-    public AccountPageObject clickRegisterButton() {
+    @Step("Click register button to navigate to Register Page ")
+    public HomePageObject clickRegisterButton() {
         waitForElementClickable(driver, RegisterPageUI.REGISTER_BUTTON);
         clickElement(driver,RegisterPageUI.REGISTER_BUTTON);
-        return PageGenerator.getAccountPage(driver);
+        return PageGenerator.getHomePage(driver);
     }
 
-    @Step("Get firstname required message")
-    public String getFirstnameRequiredMessage() {
-        waitForElementVisible(driver,RegisterPageUI.FIRSTNAME_REQUIRED_MESSAGE);
-        return getElementText(driver,RegisterPageUI.FIRSTNAME_REQUIRED_MESSAGE);
-    }
-
-    @Step("Get lastname required message")
-    public String getLastnameRequiredMessage() {
-        waitForElementVisible(driver,RegisterPageUI.LASTNAME_REQUIRED_MESSAGE);
-        return getElementText(driver,RegisterPageUI.LASTNAME_REQUIRED_MESSAGE);
-    }
-
-    @Step("Get email required message")
-    public String getEmailRequiredMessage() {
-        waitForElementVisible(driver,RegisterPageUI.EMAIL_REQUIRED_MESSAGE);
-        return getElementText(driver,RegisterPageUI.EMAIL_REQUIRED_MESSAGE);
-    }
-
-    @Step("Get password required message")
-    public String getPasswordRequiredMessage() {
-        waitForElementVisible(driver,RegisterPageUI.PASSWORD_REQUIRED_MESSAGE);
-        return getElementText(driver,RegisterPageUI.PASSWORD_REQUIRED_MESSAGE);
-    }
-
-    @Step("Enter firstname textbox with value: {0}")
-    public void enterFirstnameTextbox(String firstName) {
-        waitForElementVisible(driver,RegisterPageUI.FIRSTNAME_TEXTBOX);
-        sendKeyToElement(driver,RegisterPageUI.FIRSTNAME_TEXTBOX,firstName);
-    }
     @Step("Check to genderRadio with female option")
-    public void checkGenderRadio() {
-        waitForElementVisible(driver,RegisterPageUI.FEMALE_GENDER_RADIO_BUTTON);
-      checkCheckboxOrRadio(driver,RegisterPageUI.FEMALE_GENDER_RADIO_BUTTON);
+    public void checkGenderRadio(String gender) {
+        waitForElementVisible(driver,RegisterPageUI.GENDER_RADIO_BUTTON,gender);
+      checkCheckboxOrRadio(driver,RegisterPageUI.GENDER_RADIO_BUTTON,gender);
     }
 
-    @Step("Enter lastname textbox with value: {0}")
-    public void enterLastnameTextbox(String lastName) {
-        waitForElementVisible(driver,RegisterPageUI.LASTNAME_TEXTBOX);
-        sendKeyToElement(driver,RegisterPageUI.LASTNAME_TEXTBOX,lastName);
 
-    }
-    @Step("Enter emailAddress textbox with value:{0}")
-    public void enterEmailAddressTextbox(String email) {
-        waitForElementVisible(driver,RegisterPageUI.EMAIL_TEXTBOX);
-        sendKeyToElement(driver,RegisterPageUI.EMAIL_TEXTBOX,email);
-    }
-    @Step("Enter company name with value:{0}")
-    public void enterCompanyNameTextbox(String companyName) {
-        waitForElementVisible(driver,RegisterPageUI.COMPANY_TEXTBOX);
-        sendKeyToElement(driver,RegisterPageUI.COMPANY_TEXTBOX,companyName);
-    }
     @Step("Uncheck newsletter checkbox")
     public void checkNewletterCheckbox() {
         uncheckCheckboxOrRadio(driver,RegisterPageUI.NEWSLETTER_CHECKBOX);
     }
-    @Step("Enter password with value:{0}")
-    public void enterPasswordTextbox(String password) {
-        waitForElementVisible(driver,RegisterPageUI.PASSWORD_TEXTBOX);
-        sendKeyToElement(driver,RegisterPageUI.PASSWORD_TEXTBOX,password);
-    }
-    @Step("Enter confirm password with value:{0}")
-    public void enterConfirmPasswordTextbox(String password) {
-        waitForElementVisible(driver,RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX);
-        sendKeyToElement(driver,RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX,password);
-    }
+
 
     @Step("Get invalid registered email message")
     public String getInvalidRegisterEmailMessage() {
@@ -93,33 +38,67 @@ public class RegisterPageObject extends BasePage {
         return getElementText(driver,RegisterPageUI.INVALID_EMAIL_MESSAGE);
     }
 
+    @Step("Get registered email")
     public String getRegisteredEmailAddress() {
         return getAttributeValue(driver,RegisterPageUI.EMAIL_TEXTBOX,"value");
     }
 
+    @Step("Get existed email message")
     public String getExistedEmailMessage() {
         waitForElementVisible(driver,RegisterPageUI.EXISTED_EMAIL_MESSAGE);
         return getElementText(driver,RegisterPageUI.EXISTED_EMAIL_MESSAGE);
     }
+    @Step("Fill in register form")
+    public void fillRegisterForm(String firstname, String lastname, String emailAddress, String company, String password,String gender) {
 
-    public String getInvalidPasswordMessage() {
-        waitForElementVisible(driver,RegisterPageUI.INVALID_PASSWORD_MESSAGE);
-        return getElementText(driver,RegisterPageUI.INVALID_PASSWORD_MESSAGE);
-    }
+//        checkGenderRadio(gender);
+//        enterTextboxByID(driver, "FirstName",firstname);
+//        enterTextboxByID(driver,"LastName",lastname);
+//        enterTextboxByID(driver,"Email",emailAddress);
+//        enterTextboxByID(driver,"Company",company);
+//        checkNewletterCheckbox();
+//        enterTextboxByID(driver,"Password",password);
+//        enterTextboxByID(driver,"ConfirmPassword",password);
 
-    public String getMismatchedPasswordMessage() {
-        waitForElementVisible(driver,RegisterPageUI.MISMATCHED_CONFIRM_PASSWORD);
-        return getElementText(driver,RegisterPageUI.MISMATCHED_CONFIRM_PASSWORD);
-    }
-
-    public void fillRegisterForm(String firstname, String lastname, String emailAddress, String company, String password, String confirmPassword) {
-        checkGenderRadio();
-        enterFirstnameTextbox(firstname);
-        enterLastnameTextbox(lastname);
-        enterEmailAddressTextbox(emailAddress);
-        enterCompanyNameTextbox(company);
+        checkGenderRadio(gender);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID, "FirstName",firstname);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"LastName",lastname);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Email",emailAddress);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Company",company);
         checkNewletterCheckbox();
-        enterPasswordTextbox(password);
-        enterConfirmPasswordTextbox(confirmPassword);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Password",password);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"ConfirmPassword",password);
+    }
+    @Step("Fill in register form")
+    public void fillRegisterForm(String firstname, String lastname, String emailAddress, String company, String password, String confirmPassword, String gender) {
+//        checkGenderRadio(gender);
+//        enterTextboxByID(driver, "FirstName",firstname);
+//        enterTextboxByID(driver,"LastName",lastname);
+//        enterTextboxByID(driver,"Email",emailAddress);
+//        enterTextboxByID(driver,"Company",company);
+//        checkNewletterCheckbox();
+//        enterTextboxByID(driver,"Password",password);
+//        enterTextboxByID(driver,"ConfirmPassword",confirmPassword);
+
+        checkGenderRadio(gender);
+        enterTextboxByID(driver, RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"FirstName",firstname);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"LastName",lastname);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Email",emailAddress);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Company",company);
+        checkNewletterCheckbox();
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Password",password);
+        enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"ConfirmPassword",confirmPassword);
+    }
+    @Step("Get error message about required field")
+    public String getRequiredErrorMessage(String fieldName){
+        waitForElementVisible(driver,RegisterPageUI.REGISTER_ERROR_MESSAGE_ID,fieldName);
+        return getElementText(driver,RegisterPageUI.REGISTER_ERROR_MESSAGE_ID,fieldName);
+    }
+
+    @Step("Click Logout button to back to HomePage")
+    public HomePageObject clickLogoutButton() {
+        waitForElementClickable(driver, RegisterPageUI.LOGOUT_BUTTON);
+        clickElement(driver,RegisterPageUI.LOGOUT_BUTTON);
+        return PageGenerator.getHomePage(driver);
     }
 }

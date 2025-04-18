@@ -1,7 +1,7 @@
 package actions.pageObject;
 
 import commons.BasePage;
-import interfaces.RegisterPageUI;
+import interfaces.pageUI.RegisterPageUI;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 

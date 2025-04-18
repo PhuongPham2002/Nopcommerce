@@ -11,8 +11,8 @@
         <parameter name="url" value="https://localhost:59579/">
         </parameter>
         <classes>
-            <class name="testcases.Login">
-            </class>
+            <class name="commons.Common_01_Login"/>
+            <class name="testcases.Search"/>
         </classes>
         
     </test>

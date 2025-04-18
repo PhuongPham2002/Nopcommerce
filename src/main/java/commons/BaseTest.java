@@ -103,6 +103,7 @@ public class BaseTest {
         return rand.nextInt(lowerLimit,upperLimit);
     }
 
+
     @BeforeSuite
     public void deleteFileInReport() {
         deleteAllFileInFolder("allure-results");

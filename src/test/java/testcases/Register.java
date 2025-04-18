@@ -6,7 +6,6 @@ import actions.pageObject.PageGenerator;
 import actions.pageObject.RegisterPageObject;
 import commons.BaseTest;
 import io.qameta.allure.*;
-import net.bytebuddy.build.Plugin;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;

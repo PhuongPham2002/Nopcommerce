@@ -1,4 +1,4 @@
-package interfaces;
+package interfaces.pageUI;
 
 public class LoginPageUI {
     public final static String LOGIN_BUTTON="CSS=button.login-button";
@@ -7,5 +7,6 @@ public class LoginPageUI {
     public final static String INVALID_PASSWORD_ERROR_MESSAGE ="css=div.validation-summary-errors";
     public final static String LOGIN_FORM_TEXTBOX_ID ="ID=%s";
     public final static String LOGIN_ERROR_MESSAGE_ID="id=%s-error";
+    public static final String WRONG_PASSWORD_ERROR_MESSAGE ="css=div.message-error.validation-summary-errors";
 
 }

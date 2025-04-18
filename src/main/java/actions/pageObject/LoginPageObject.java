@@ -1,8 +1,7 @@
 package actions.pageObject;
 
 import commons.BasePage;
-import interfaces.BasePageUI;
-import interfaces.LoginPageUI;
+import interfaces.pageUI.LoginPageUI;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 
@@ -45,6 +44,11 @@ public class LoginPageObject extends BasePage {
     public String getInvalidPasswordErrorMessage() {
         waitForElementVisible(driver,LoginPageUI.EMPTY_PASSWORD_ERROR_MESSAGE);
         return getElementText(driver,LoginPageUI.EMPTY_PASSWORD_ERROR_MESSAGE);
+    }
+
+    public String getWrongPasswordErrorMessage() {
+        waitForElementVisible(driver,LoginPageUI.WRONG_PASSWORD_ERROR_MESSAGE);
+        return getElementText(driver,LoginPageUI.WRONG_PASSWORD_ERROR_MESSAGE);
     }
 }
 

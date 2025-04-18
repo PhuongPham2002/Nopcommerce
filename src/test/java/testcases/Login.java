@@ -4,7 +4,6 @@ import actions.pageObject.HomePageObject;
 import actions.pageObject.LoginPageObject;
 import actions.pageObject.PageGenerator;
 import commons.BaseTest;
-import interfaces.LoginPageUI;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;

@@ -1,4 +1,4 @@
-package actions.pageObject.HeaderMenu.Computers;
+package actions.pageObject;
 
 import actions.components.DisplayProductComponent;
 import actions.components.SortProductComponent;

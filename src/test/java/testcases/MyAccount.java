@@ -2,8 +2,7 @@
 
 package testcases;
 import actions.pageObject.*;
-import actions.pageObject.HeaderMenu.Computers.ComputerPageObject;
-import actions.pageObject.HeaderMenu.HeaderMenuPageObject;
+import actions.pageObject.ComputerPageObject;
 import actions.pageObject.MyAccountSideBar.*;
 import actions.pageObject.PageGenerator;
 import commons.BaseTest;
@@ -16,10 +15,6 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 import testdata.CustomerAddressesData;
 import testdata.CustomerInfoData;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 public class MyAccount extends BaseTest {
     WebDriver driver;

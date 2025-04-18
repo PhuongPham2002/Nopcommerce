@@ -1,6 +1,5 @@
 package actions.pageObject;
 
-import actions.pageObject.HeaderMenu.Computers.NotebooksPageObject;
 import actions.pageObject.MyAccountSideBar.MyAccountSideBarPageObject;
 import commons.BasePage;
 import interfaces.pageUI.HomePageUI;

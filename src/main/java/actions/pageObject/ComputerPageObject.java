@@ -1,7 +1,5 @@
-package actions.pageObject.HeaderMenu.Computers;
+package actions.pageObject;
 
-import actions.pageObject.HeaderMenu.HeaderMenuPageObject;
-import interfaces.pageUI.ComputerSubMenuPageUI;
 import org.openqa.selenium.WebDriver;
 
 public class ComputerPageObject extends HeaderMenuPageObject {

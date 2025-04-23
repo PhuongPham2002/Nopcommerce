@@ -51,13 +51,36 @@ public class BasePage {
     public List<WebElement> getListElement (WebDriver driver, String dynamicLocatorTemplate, String...dynamicParts){
         return driver.findElements(getByLocator(formatLocator(dynamicLocatorTemplate,dynamicParts)));
     }
+    public void clickElementWithLogging(WebDriver driver, String locatorForLog){
+        try{
+            log.info("Attempting to click element with locator: "+locatorForLog);
+            getElement(driver,locatorForLog).click();
+            log.info("Element clicked successfully.");
+        } catch (NoSuchElementException e){
+            log.error("Element not found: "+ locatorForLog);
+            throw new RuntimeException("Element not found at locator : "+locatorForLog,e);
+        } catch (ElementClickInterceptedException e) {
+            log.error("Element is being obscured or blocked :"+ locatorForLog);
+            throw new RuntimeException("Unable to click element because other element obscured it");
+        } catch (ElementNotInteractableException e){
+            log.error("Element is not interactable (possibly hidden or disabled: "+ locatorForLog);
+            throw new RuntimeException("Element is not interactable: "+ locatorForLog,e);
+        } catch (StaleElementReferenceException e){
+            log.error("Element became stale before clicking");
+            throw new RuntimeException("Stale element during click: "+ locatorForLog,e);
+        } catch (Exception e){
+            log.error("Unexpected error occurred while trying to click: " + locatorForLog);
+            log.error("Exception Message: "+e.getMessage());
+            throw new RuntimeException("Unexpected error during click: "+locatorForLog,e);
+        }
 
-
+    }
     public void clickElement(WebDriver driver, String rawLocator){
-        getElement(driver,rawLocator).click();
+        clickElementWithLogging(driver,rawLocator);
     }
     public void clickElement(WebDriver driver, String dynamicLocatorTemplate, String...dynamicParts){
-        getElement(driver,formatLocator(dynamicLocatorTemplate,dynamicParts)).click();
+        String locator = formatLocator(dynamicLocatorTemplate,dynamicParts);
+        clickElementWithLogging(driver,locator);
     }
     public void sendKeyToElement(WebDriver driver, String rawLocator, String valueToSend){
         getElement(driver,rawLocator).clear();
@@ -92,7 +115,8 @@ public class BasePage {
     }
 
     public void selectDropdownOption(WebDriver driver, String rawLocator, String option){
-        new Select(getElement(driver,rawLocator)).selectByVisibleText(option);
+            new Select(getElement(driver,rawLocator)).selectByVisibleText(option);
+
     }
     public void selectDropdownOption(WebDriver driver,String option, String dynamicLocatorTemplate,String... dynamicParts){
         new Select(getElement(driver,formatLocator(dynamicLocatorTemplate,dynamicParts))).selectByVisibleText(option);
@@ -144,9 +168,9 @@ public class BasePage {
             }
         }
     }
-    public void checkCheckboxOrRadio(WebDriver driver, String rawlocator) {
-        if (!getElement(driver,rawlocator).isSelected()){
-        getElement(driver,rawlocator).click();}
+    public void checkCheckboxOrRadio(WebDriver driver, String rawLocator) {
+        if (!getElement(driver,rawLocator).isSelected()){
+        getElement(driver,rawLocator).click();}
     }
     public void checkCheckboxOrRadio(WebDriver driver, String dynamicLocatorTemplate, String...dynamicParts) {
         if (!getElement(driver,formatLocator(dynamicLocatorTemplate,dynamicParts)).isSelected()){

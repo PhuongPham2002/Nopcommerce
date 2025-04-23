@@ -12,7 +12,7 @@
         </parameter>
         <classes>
             <class name="commons.Common_01_Login"/>
-            <class name="testcases.Search"/>
+            <class name="testcases.SearchTests"/>
         </classes>
         
     </test>

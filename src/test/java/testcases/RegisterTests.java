@@ -13,7 +13,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 @Feature("Register")
-public class Register extends BaseTest {
+public class RegisterTests extends BaseTest {
 
     //Behavior là khi mà click vào enter vào trường email thì nó đã hiển thị luôn error message rồi, mình nên assert
     //ngay lúc đó rồi hay đợi click Register rồi mới assert? (nếu assert ngay lúc đó rồi thì click register xong vẫn cần assert nhỉ)

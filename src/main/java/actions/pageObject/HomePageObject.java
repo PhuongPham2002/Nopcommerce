@@ -38,7 +38,7 @@ public class HomePageObject extends BasePage {
 
     public void hoverToHeaderMenuItem(String menuItemName) {
         hoverToElement(driver,HomePageUI.HEADER_MENU_ITEM_BY_NAME,menuItemName);
-        sleepInSecond(3);
+        sleepInSecond(2);
 
 
     }

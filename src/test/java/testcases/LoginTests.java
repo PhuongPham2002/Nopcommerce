@@ -11,7 +11,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-public class Login extends BaseTest {
+public class LoginTests extends BaseTest {
     // Gom nhóm các error message có locator tương tự nhau, locator khác nhau thì vẫn phải tạo 1 locator khác.
     private HomePageObject homePage;
     private LoginPageObject loginPage;

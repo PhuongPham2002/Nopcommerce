@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 import testdata.CustomerAddressesData;
 import testdata.CustomerInfoData;
 
-public class MyAccount extends BaseTest {
+public class MyAccountTests extends BaseTest {
     WebDriver driver;
     private HomePageObject homePage;
     private CustomerInfoPageObject customerInfoPage;

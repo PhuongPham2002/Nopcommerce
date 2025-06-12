@@ -1,9 +1,10 @@
 package actions.pageObject;
 
-import commons.BasePage;
+import commons.base.BasePage;
 import interfaces.pageUI.LoginPageUI;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 
 public class LoginPageObject extends BasePage {
     WebDriver driver;
@@ -25,9 +26,9 @@ public class LoginPageObject extends BasePage {
         enterTextboxByID(driver,LoginPageUI.LOGIN_FORM_TEXTBOX_ID,"Password",password);
     }
     @Step("Get error login message")
-    public String getErrorLoginMessage(String fieldName){
-        waitForElementVisible(driver,LoginPageUI.LOGIN_ERROR_MESSAGE_ID,fieldName);
-        return getElementText(driver,LoginPageUI.LOGIN_ERROR_MESSAGE_ID,fieldName);
+    public String getErrorLoginMessage(){
+        waitForElementVisible(driver,LoginPageUI.LOGIN_ERROR_MESSAGE);
+        return getElementText(driver,LoginPageUI.LOGIN_ERROR_MESSAGE);
     }
 
     @Step("Get unregistered error message")
@@ -50,5 +51,33 @@ public class LoginPageObject extends BasePage {
         waitForElementVisible(driver,LoginPageUI.WRONG_PASSWORD_ERROR_MESSAGE);
         return getElementText(driver,LoginPageUI.WRONG_PASSWORD_ERROR_MESSAGE);
     }
+
+    //Cucumber implement:
+
+    public String getErrorMessage() {
+        waitForElementVisible(driver,LoginPageUI.ERROR_MESSAGE);
+        return getElementText(driver,LoginPageUI.ERROR_MESSAGE);
+    }
+
+    public void verifyErrorMessages(String expectedMessage, String position){
+        switch (position){
+            case "email":
+                Assert.assertEquals(getErrorLoginMessage(),expectedMessage);
+                break;
+            case "summary":
+                Assert.assertEquals(getErrorMessage(),expectedMessage);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid position of message: "+position);
+        }
+
+    }
+
+    public boolean isMyAccountLinkVisible(){
+        waitForElementVisible(driver,LoginPageUI.MY_ACCOUNT_LINK);
+        return isElementDisplayed(driver,LoginPageUI.MY_ACCOUNT_LINK);
+    }
+
+
 }
 

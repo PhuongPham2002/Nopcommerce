@@ -1,6 +1,5 @@
-package commons.testBase;
+package commons.base;
 
-import commons.base.BrowserList;
 import commons.helpers.CommonHelper;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;

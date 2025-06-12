@@ -1,5 +1,6 @@
-package commons;
+package commons.listeners;
 
+import commons.base.BaseTest;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

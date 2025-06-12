@@ -1,11 +1,15 @@
 package actions.pageObject;
 
 import actions.components.DisplayProductComponent;
+import actions.components.Header.HeaderComponent;
+import actions.components.NotificationBarComponent;
 import actions.components.SortProductComponent;
-import commons.BasePage;
+import commons.base.BasePage;
+import commons.helpers.WaitHelper;
 import interfaces.pageUI.NotebooksPageUI;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -15,10 +19,16 @@ public class NotebooksPageObject extends BasePage {
     WebDriver driver;
     public SortProductComponent sort;
     public DisplayProductComponent display;
+    public HeaderComponent header;
+    public NotificationBarComponent notificationBar;
+
+    public final static String SUCCESSFUL_MESSAGE_ADD_TO_COMPARE ="The product has been added to your product comparison";
     public NotebooksPageObject(WebDriver driver) {
         this.driver = driver;
         this.sort = new SortProductComponent(driver);
         this.display = new DisplayProductComponent(driver);
+        this.notificationBar= new NotificationBarComponent(driver);
+        this.header = new HeaderComponent(driver);
 
     }
     public void sortProductNameByAscending(String sortOption) {
@@ -120,6 +130,37 @@ public class NotebooksPageObject extends BasePage {
         display.selectProductsDisplayOption(displayOption);
         waitForLoadingScreenInvisible(driver);
 
+    }
+
+    public ProductDetailPageObject clickProduct(String productName) {
+        waitForLoadingIconInvisible(driver);
+        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
+        clickElement(driver,NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
+        return PageGenerator.getProductDetailPage(driver);
+    }
+
+    public void clickAddProductToCompareListButton(String productName) {
+        waitForLoadingIconInvisible(driver);
+        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_ADD_TO_COMPARE_BUTTON,productName);
+        clickElement(driver,NotebooksPageUI.DYNAMIC_ADD_TO_COMPARE_BUTTON,productName);
+    }
+
+    public String getSuccessfulMessageForAddingProductsToComparisonList() {
+        waitForLoadingIconInvisible(driver);
+        waitForTextToBePresentInElement(driver,NotebooksPageUI.SUCCESSFUL_MESSAGE_ADD_TO_COMPARE,SUCCESSFUL_MESSAGE_ADD_TO_COMPARE);
+        return getElementText(driver,NotebooksPageUI.SUCCESSFUL_MESSAGE_ADD_TO_COMPARE);
+    }
+
+    public void clickAddToCartButton(String productName) {
+        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_ADD_TO_CART_BUTTON,productName);
+        clickElement(driver,NotebooksPageUI.DYNAMIC_ADD_TO_CART_BUTTON,productName);
+    }
+
+    public ShoppingCartPageObject clickShoppingCartLinkFromHeader() {
+        WaitHelper.waitForLoadingIconInvisible(driver);
+        notificationBar.closeNotification();
+        header.account.clickShoppingCartLink();
+        return PageGenerator.getShoppingCartPage(driver);
     }
 }
 

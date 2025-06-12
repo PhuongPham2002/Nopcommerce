@@ -4,107 +4,95 @@ import actions.pageObject.AccountPageObject;
 import actions.pageObject.HomePageObject;
 import actions.pageObject.PageGenerator;
 import actions.pageObject.RegisterPageObject;
-import commons.BaseTest;
+import commons.base.BaseTest;
+import commons.constants.RegisterMessageConstants;
+import data.helpers.RegisterDataHelper;
+import data.provider.RegisterDataProvider;
+import dataObjects.RegisterTestData;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Parameters;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+
 @Feature("Register")
 public class RegisterTests extends BaseTest {
-
-    //Behavior là khi mà click vào enter vào trường email thì nó đã hiển thị luôn error message rồi, mình nên assert
-    //ngay lúc đó rồi hay đợi click Register rồi mới assert? (nếu assert ngay lúc đó rồi thì click register xong vẫn cần assert nhỉ)
-    //có nhiều case invalid khác thì có cần check ko? nhap sai kí tự....
-    //Data test, ví thử case password invalid thì có phải tạo data test nhiều loại pass invalid khác nhau?
-    //có test validation của từng trường ko? (ví dụ username ko nhập ký tự đặc biệt, dài bao nhiêu ký tự....)
 
     private WebDriver driver;
     private HomePageObject homePage;
     private RegisterPageObject registerPage;
     private AccountPageObject accountPage;
-    private String firstName,lastName,emailAddress,companyName,password,invalidEmail,existedEmail,invalidPassword,gender;
+    private String registeredEmail;
+
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url){
         driver = getBrowserDriver(browser,url);
-        log.info("Pre-condition: Open RegisterPage");
         homePage = PageGenerator.getHomePage(driver);
         registerPage = homePage.clickRegisterLink();
-        firstName ="Rosie";
-        lastName ="Pham";
-        emailAddress = "phuong"+generateRandomNumber()+"@gmail.com";
-        invalidEmail ="phuong"+generateRandomNumber();
-        companyName ="AI Automation";
-        password ="123456789";
-        invalidPassword ="1234";
-        gender = "Female";
+    }
 
+    @BeforeMethod
+    public void openRegisterPage(){
+        registerPage.clickRegisterLink();
 
-        //Data nên test như nào đối với các trường textbox như này? ví dụ ký tự đặc biệt, tên dài ngắn...
-        //data bất thường  --> lúc đó có nên dùng excel ko?
-        //Với case Register thì bthg còn test rất nhiều trường hợp khác với datata test --> mai check xem ntn
+    }
+
+    @Test
+    public void Register_01_RegisterWithValidRequiredField() {
+        registerPage.fillRegisterForm(RegisterDataHelper.provideValidRequiredFields());
+        registeredEmail =registerPage.getRegisteredEmailAddress();
+        homePage = registerPage.clickRegisterButton();
+        Assert.assertEquals(homePage.getSuccessfulRegisterMessage(),RegisterMessageConstants.SUCCESSFULLY_REGISTER);
+        homePage = registerPage.clickLogoutButton();
+        registerPage = homePage.clickRegisterLink();
+    }
+
+    @Test
+    public void Register_02_RegisterWithValidRequiredFieldAndGenderSelection(){
+        registerPage.fillRegisterForm(RegisterDataHelper.provideValidRequiredFieldsAndGenderSelection());
+        registeredEmail =registerPage.getRegisteredEmailAddress();
+        homePage = registerPage.clickRegisterButton();
+        Assert.assertEquals(homePage.getSuccessfulRegisterMessage(),RegisterMessageConstants.SUCCESSFULLY_REGISTER);
+        homePage = registerPage.clickLogoutButton();
+        registerPage = homePage.clickRegisterLink();
     }
 
     @Test
     public void Register_01_EmptyData_Validation(){
         registerPage.clickRegisterButton();
-        Assert.assertEquals(registerPage.getRequiredErrorMessage("FirstName"),"First name is required.");
-        Assert.assertEquals(registerPage.getRequiredErrorMessage("LastName"),"Last name is required.");
-        Assert.assertEquals(registerPage.getRequiredErrorMessage("Email"),"Email is required.");
-        Assert.assertEquals(registerPage.getRequiredErrorMessage("ConfirmPassword"),"Password is required.");
+        Assert.assertEquals(registerPage.getErrorMessageForRequireField("FirstName"), RegisterMessageConstants.REQUIRED_FIRST_NAME);
+        Assert.assertEquals(registerPage.getErrorMessageForRequireField("LastName"),RegisterMessageConstants.REQUIRED_LAST_NAME);
+        Assert.assertEquals(registerPage.getErrorMessageForRequireField("Email"),RegisterMessageConstants.REQUIRED_EMAIL);
+        Assert.assertEquals(registerPage.getErrorMessageForRequireField("ConfirmPassword"),RegisterMessageConstants.REQUIRED_PASSWORD);
     }
-    @Test
-    public void Register_02_InvalidEmail(){
-        log.info(String.format("Register Info: %s,%s,%s,%s,%s",firstName,lastName,invalidEmail,companyName,password,gender));
-        registerPage.fillRegisterForm(firstName,lastName,invalidEmail,companyName,password,gender);
+
+
+    @Test (dataProvider = "Invalid Emails", dataProviderClass = RegisterDataProvider.class)
+    public void Register_02_InvalidEmail(RegisterTestData registerTestData){
+        registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
-        log.info("Assert Error Message: " + registerPage.getInvalidRegisterEmailMessage());
-        Assert.assertEquals(registerPage.getInvalidRegisterEmailMessage(),"Please enter a valid email address.");
-
-
-
-    }
-
-    @Test
-    public void Register_03_ValidInfo() {
-        log.info(String.format("Register Info: %s,%s,%s,%s,%s,%s",firstName,lastName,emailAddress,companyName,password,gender));
-        registerPage.fillRegisterForm(firstName,lastName,emailAddress,companyName,password,gender);
-        existedEmail=registerPage.getRegisteredEmailAddress();
-        homePage = registerPage.clickRegisterButton();
-        log.info("Assert successful message: "+homePage.getSuccessfulRegisterMessage());
-        Assert.assertEquals(homePage.getSuccessfulRegisterMessage(),"Your registration completed");
-        homePage = registerPage.clickLogoutButton();
-        registerPage = homePage.clickRegisterLink();
+        Assert.assertEquals(registerPage.getInvalidRegisterEmailMessage(),RegisterMessageConstants.INVALID_EMAIL);
     }
 
 
-    @Test
+    @Test (dependsOnMethods = "Register_01_RegisterWithValidRequiredField" )
     public void Register_04_ExistedEmail() {
-        log.info(String.format("Register Info: %s,%s,%s,%s,%s,%s",firstName,lastName,existedEmail,companyName,password,gender));
-        registerPage.fillRegisterForm(firstName,lastName,existedEmail,companyName,password,gender);
+        registerPage.fillRegisterForm(RegisterDataHelper.provideExistedEmailData(registeredEmail));
         registerPage.clickRegisterButton();
-        log.info("Assert ExistedEmail Error message: "+registerPage.getExistedEmailMessage());
-        Assert.assertEquals(registerPage.getExistedEmailMessage(),"The specified email already exists");
+        Assert.assertEquals(registerPage.getExistedEmailMessage(),RegisterMessageConstants.EXISTED_EMAIL);
     }
-    @Test
-    public void Register_05_InvalidPassword() {
-        log.info(String.format("Register Info: %s,%s,%s,%s,%s,%s",firstName,lastName,emailAddress,companyName,invalidPassword,gender));
-        registerPage.fillRegisterForm(firstName,lastName,emailAddress,companyName,invalidPassword,gender);
+    @Test (dataProvider = "Invalid Password",dataProviderClass = RegisterDataProvider.class)
+    public void Register_05_InvalidPassword(RegisterTestData registerTestData) {
+        registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
-        log.info("Assert invalid password message: "+registerPage.getRequiredErrorMessage("Password"));
-        Assert.assertEquals(registerPage.getRequiredErrorMessage("Password"),"Password must meet the following rules: must have at least 6 characters and not greater than 64 characters");
+        Assert.assertEquals(registerPage.getErrorMessageForRequireField("Password"),RegisterMessageConstants.INVALID_PASSWORD);
 
     }
-    @Test
-    public void Register_06_MismatchedConfirmPassword() {
-        log.info(String.format("Register Info: %s,%s,%s,%s,%s,%s,%s",firstName,lastName,emailAddress,companyName,invalidPassword,password,gender));
-        registerPage.fillRegisterForm(firstName,lastName,emailAddress,companyName,invalidPassword,password,gender);
+    @Test (dataProvider = "Mismatch confirm password", dataProviderClass = RegisterDataProvider.class)
+    public void Register_06_MismatchedConfirmPassword(RegisterTestData registerTestData) {
+        registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
-        log.info("Assert invalid password message: "+registerPage.getRequiredErrorMessage("ConfirmPassword"));
-        Assert.assertEquals(registerPage.getRequiredErrorMessage("ConfirmPassword"), "The password and confirmation password do not match.");
+        Assert.assertEquals(registerPage.getErrorMessageForRequireField("ConfirmPassword"), RegisterMessageConstants.MISMATCHED_PASSWORD);
     }
 
     @AfterClass (alwaysRun = true)

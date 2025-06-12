@@ -1,20 +1,25 @@
 package actions.pageObject;
 
-import actions.pageObject.MyAccountSideBar.MyAccountSideBarPageObject;
-import commons.BasePage;
+import actions.components.Header.HeaderComponent;
+import actions.components.MyAccountSideBar.MyAccountSideBarPageObject;
+import commons.base.BasePage;
 import interfaces.pageUI.HomePageUI;
 import org.openqa.selenium.WebDriver;
 
 public class HomePageObject extends BasePage {
     WebDriver driver;
+    HeaderComponent header;
+
 
     public HomePageObject(WebDriver driver) {
+
         this.driver = driver;
+        this.header = new HeaderComponent(driver);
+
     }
 
     public RegisterPageObject clickRegisterLink() {
-        waitForElementClickable(driver, HomePageUI.REGISTER_LINK);
-        clickElement(driver,HomePageUI.REGISTER_LINK);
+        header.account.clickRegisterLink();
         return PageGenerator.getRegisterPage(driver);
 
     }
@@ -36,18 +41,10 @@ public class HomePageObject extends BasePage {
         return PageGenerator.getMyAccountSideBarPage(driver);
     }
 
-    public void hoverToHeaderMenuItem(String menuItemName) {
-        hoverToElement(driver,HomePageUI.HEADER_MENU_ITEM_BY_NAME,menuItemName);
-        sleepInSecond(2);
-
-
+    public BasePage hoverToHeaderProductCategoryAndClickToSubProductCategory(String productCategory,String subProductCategory) {
+        header.productCategory.hoverToHeaderProductCategory(productCategory);
+        header.productCategory.waitForSubProductCategoryVisible(subProductCategory);
+        return header.productCategory.clickSubProductCategory(productCategory,subProductCategory);
     }
 
-    public NotebooksPageObject clickSubmenuItem(String subMenuItem) {
-        //hoverToHeaderMenuItem(menuItemName);
-        waitForElementVisible(driver,HomePageUI.DYNAMIC_SUBMENU_LINK,subMenuItem);
-        clickElement(driver,HomePageUI.DYNAMIC_SUBMENU_LINK,subMenuItem);
-        sleepInSecond(3);
-        return new NotebooksPageObject(driver);
-    }
 }

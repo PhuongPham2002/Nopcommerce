@@ -1,4 +1,4 @@
-package commons;
+package commons.constants;
 
 public class GlobalConstants {
 

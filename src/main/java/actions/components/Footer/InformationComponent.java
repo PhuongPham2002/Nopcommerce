@@ -2,10 +2,10 @@ package actions.components.Footer;
 
 import org.openqa.selenium.WebDriver;
 
-public class CustomerServiceComponent {
+public class InformationComponent {
     WebDriver driver;
 
-    public CustomerServiceComponent(WebDriver driver) {
+    public InformationComponent(WebDriver driver) {
         this.driver = driver;
     }
 }

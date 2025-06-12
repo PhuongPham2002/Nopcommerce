@@ -1,15 +1,11 @@
 package actions.pageObject;
 
-import actions.components.FooterComponent;
-import actions.pageObject.HeaderMenu.Books.BooksPageObject;
-import actions.pageObject.HeaderMenu.DigitalDownloads.DigitalDownloadsPageObject;
-import actions.pageObject.HeaderMenu.Electronics.ElectronicsPageObject;
-import actions.pageObject.HeaderMenu.GiftCards.GiftCardPageObject;
-import actions.pageObject.HeaderMenu.Jewery.JewelryPageObject;
-import actions.pageObject.MyAccountSideBar.*;
+import actions.components.Footer.FooterComponent;
+
+import actions.components.MyAccountSideBar.*;
 import org.openqa.selenium.WebDriver;
-import testdata.CustomerAddressesData;
-import testdata.CustomerInfoData;
+import dataObjects.CustomerAddressesData;
+import dataObjects.CustomerInfoData;
 
 public class PageGenerator {
 
@@ -54,26 +50,8 @@ public class PageGenerator {
     public static MyAccountSideBarPageObject getMyAccountSideBarPage(WebDriver driver){
         return new MyAccountSideBarPageObject(driver);
     }
-
-    //TopMenu:
-    public static HeaderMenuPageObject getHeaderMenuPage (WebDriver driver){return new HeaderMenuPageObject(driver);}
-    public static ComputerPageObject getComputerPage(WebDriver driver){
-        return new ComputerPageObject(driver);
-    }
-    public static ElectronicsPageObject getElectronicsPage(WebDriver driver){
-        return new ElectronicsPageObject(driver);
-    }
-    public static BooksPageObject getBooks(WebDriver driver){
-        return new BooksPageObject(driver);
-    }
-    public static DigitalDownloadsPageObject getDigitalDownloadsPage (WebDriver driver){
-        return new DigitalDownloadsPageObject(driver);
-    }
-    public static JewelryPageObject getJewelryPage(WebDriver driver){
-        return new JewelryPageObject(driver);
-    }
-    public static GiftCardPageObject getGiftCardPage (WebDriver driver){
-        return new GiftCardPageObject(driver);
+    public static ProductDetailPageObject getProductDetailPage(WebDriver driver){
+        return new ProductDetailPageObject(driver);
     }
 
     //Data Class:
@@ -85,6 +63,66 @@ public class PageGenerator {
     //Footer:
     public static FooterComponent getFooterComponent (WebDriver driver){return new FooterComponent(driver);}
     public static SearchPageObject getSearchPage(WebDriver driver){return new SearchPageObject(driver);}
+
+
+    public static WishListPageObject getWishListPage (WebDriver driver){
+        return new WishListPageObject(driver);
+    }
+
+    public static ShoppingCartPageObject getShoppingCartPage (WebDriver driver){
+        return new ShoppingCartPageObject(driver);
+    }
+
+    public static NotebooksPageObject getNoteBooksPage(WebDriver driver){
+        return new NotebooksPageObject(driver);
+
+    }
+    public static CompareProductsListPageObject getCompareProductsListPage(WebDriver driver){
+        return new CompareProductsListPageObject(driver);
+    }
+    public static RecentlyViewedProductsPageObject getRecentlyReviewProduct(WebDriver driver){
+        return new RecentlyViewedProductsPageObject(driver);
+    }
+
+    //Product Category Header
+    public static DesktopsPageObject getDesktopsPage (WebDriver driver){
+        return new DesktopsPageObject(driver);
+    }
+
+    public static ComputerPageObject getComputersPage (WebDriver driver){
+        return new ComputerPageObject(driver);
+    }
+
+    public static ElectronicsPageObject getElectronicsPage (WebDriver driver){
+        return new ElectronicsPageObject(driver);
+    }
+
+    public static ApparelPageObject getApparelPage (WebDriver driver){
+        return new ApparelPageObject(driver);
+    }
+
+    public static DigitalDownloadsPageObject getDigitalDownloadsPage (WebDriver driver){
+        return new DigitalDownloadsPageObject(driver);
+    }
+    public static BooksPageObject getBooksPage (WebDriver driver){
+        return new BooksPageObject(driver);
+    }
+
+    public static JewelryPageObject getJewelryPage (WebDriver driver){
+        return new JewelryPageObject(driver);
+    }
+
+    public static GiftCardPageObject getGiftCardPage (WebDriver driver){
+        return new GiftCardPageObject(driver);
+    }
+
+    public static EstimateShippingPopupPageObject getEstimateShippingPopupPage (WebDriver driver){
+        return new EstimateShippingPopupPageObject(driver);
+    }
+
+    public static CheckoutPageObject getCheckoutPage(WebDriver driver){
+        return new CheckoutPageObject(driver);
+    }
 
 
 

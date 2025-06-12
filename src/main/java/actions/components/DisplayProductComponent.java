@@ -1,6 +1,6 @@
 package actions.components;
 
-import commons.BasePage;
+import commons.base.BasePage;
 import interfaces.componentUI.DisplayProductsComponentUI;
 import org.openqa.selenium.WebDriver;
 

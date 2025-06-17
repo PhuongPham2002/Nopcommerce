@@ -95,7 +95,7 @@ public class RegisterTests extends BaseTest {
         Assert.assertEquals(registerPage.getErrorMessageForRequireField("ConfirmPassword"), RegisterMessageConstants.MISMATCHED_PASSWORD);
     }
 
-    public void Register_07(){
+    public void Register_10(){
         //Test push code
     }
 

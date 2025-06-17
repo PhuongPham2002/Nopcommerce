@@ -13,17 +13,12 @@ pipeline {
                 bat 'mvn clean test'
             }
         }
-
-        stage('Allure Report') {
-            steps {
-                allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
-            }
-        }
     }
 
     post {
         always {
-            echo 'Build complete'
+            echo '🟡 Post actions bắt đầu...'
+            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
         }
     }
 }

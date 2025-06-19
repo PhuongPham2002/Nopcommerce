@@ -4,8 +4,7 @@ import actions.components.Footer.FooterComponent;
 
 import actions.components.MyAccountSideBar.*;
 import org.openqa.selenium.WebDriver;
-import dataObjects.CustomerAddressesData;
-import dataObjects.CustomerInfoData;
+import dataObjects.CustomerData;
 
 public class PageGenerator {
 
@@ -23,29 +22,29 @@ public class PageGenerator {
     }
 
     //Account SideBar:
-    public static CustomerInfoPageObject getCustomerInfoPage(WebDriver driver){
-        return new CustomerInfoPageObject(driver);
+    public static CustomerInfoComponent getCustomerInfoPage(WebDriver driver){
+        return new CustomerInfoComponent(driver);
     }
-    public static AddressesPageObject getAddressesPage (WebDriver driver){
-        return new AddressesPageObject(driver);
+    public static AddressesComponent getAddressesPage (WebDriver driver){
+        return new AddressesComponent(driver);
     }
-    public static OrdersPageObject getOrdersPage (WebDriver driver){
-        return new OrdersPageObject(driver);
+    public static OrdersComponent getOrdersPage (WebDriver driver){
+        return new OrdersComponent(driver);
     }
-    public static DownloadableProductsPageObject getDownloadableProductsPage(WebDriver driver){
-        return new DownloadableProductsPageObject(driver);
+    public static DownloadableProductsComponent getDownloadableProductsPage(WebDriver driver){
+        return new DownloadableProductsComponent(driver);
     }
-    public static BackInStockSubscriptionsPageObject getBackInStockSubscriptionsPage (WebDriver driver){
-        return new BackInStockSubscriptionsPageObject(driver);
+    public static BackInStockSubscriptionsComponent getBackInStockSubscriptionsPage (WebDriver driver){
+        return new BackInStockSubscriptionsComponent(driver);
     }
-    public static RewardPointsPageObject getRewardPointsPage (WebDriver driver){
-        return new RewardPointsPageObject(driver);
+    public static RewardPointsComponent getRewardPointsPage (WebDriver driver){
+        return new RewardPointsComponent(driver);
     }
-    public static ChangePasswordPageObject getChangePasswordPage (WebDriver driver){
-        return new ChangePasswordPageObject(driver);
+    public static ChangePasswordComponent getChangePasswordPage (WebDriver driver){
+        return new ChangePasswordComponent(driver);
     }
-    public static MyProductReviewsPageObject getMyProductReviewPage (WebDriver driver){
-        return new MyProductReviewsPageObject(driver);
+    public static MyProductReviewsComponent getMyProductReviewPage (WebDriver driver){
+        return new MyProductReviewsComponent(driver);
     }
     public static MyAccountSideBarPageObject getMyAccountSideBarPage(WebDriver driver){
         return new MyAccountSideBarPageObject(driver);
@@ -54,11 +53,6 @@ public class PageGenerator {
         return new ProductDetailPageObject(driver);
     }
 
-    //Data Class:
-
-    public static CustomerInfoData getCustomerInfoData (){return new CustomerInfoData();}
-    public static CustomerAddressesData getCustomerAddressesData (){return new CustomerAddressesData();
-    }
 
     //Footer:
     public static FooterComponent getFooterComponent (WebDriver driver){return new FooterComponent(driver);}

@@ -46,6 +46,11 @@ public class RegisterPageObject extends BasePage {
         return getElementText(driver,RegisterPageUI.INVALID_EMAIL_MESSAGE);
     }
 
+    public String getSuccessfulRegisterMessage() {
+        waitForElementVisible(driver, RegisterPageUI.SUCCESSFUL_REGISTER_MESSAGE);
+        return getElementText(driver,RegisterPageUI.SUCCESSFUL_REGISTER_MESSAGE);
+    }
+
     @Step("Get registered email")
     public String getRegisteredEmailAddress() {
         return this.getDOMPropertyValue(driver,RegisterPageUI.EMAIL_TEXTBOX,"value");
@@ -63,23 +68,23 @@ public class RegisterPageObject extends BasePage {
             checkGenderRadio(registerData.getGender());
         }
         if (registerData.getFirstName()!=null){
-            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID, "FirstName",registerData.getFirstName());
+            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,registerData.getFirstName(), "FirstName");
         }
         if (registerData.getLastName()!=null){
-            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"LastName",registerData.getLastName());
+            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,registerData.getLastName(),"LastName");
         }
         if (registerData.getEmailAddress()!=null){
-            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Email",registerData.getEmailAddress());
+            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,registerData.getEmailAddress(),"Email");
         }
         if (registerData.getCompanyName()!=null){
-            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Company",registerData.getCompanyName());
+            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,registerData.getCompanyName(),"Company");
         }
         checkNewletterCheckbox();
         if (registerData.getPassword()!=null){
-            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"Password",registerData.getPassword());
+            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,registerData.getPassword(),"Password");
         }
         if (registerData.getConfirmPassword()!=null){
-            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,"ConfirmPassword",registerData.getConfirmPassword());
+            enterTextboxByID(driver,RegisterPageUI.REGISTER_FORM_TEXTBOX_ID,registerData.getConfirmPassword(),"ConfirmPassword");
         }
 
     }
@@ -92,9 +97,8 @@ public class RegisterPageObject extends BasePage {
     }
 
     @Step("Click Logout button to back to HomePage")
-    public HomePageObject clickLogoutButton() {
-        waitForElementClickable(driver, RegisterPageUI.LOGOUT_BUTTON);
-        clickElement(driver,RegisterPageUI.LOGOUT_BUTTON);
+    public HomePageObject clickLogoutLink() {
+        header.account.clickLogoutLink();
         return PageGenerator.getHomePage(driver);
     }
 

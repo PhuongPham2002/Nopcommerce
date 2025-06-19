@@ -1,12 +1,11 @@
 package actions.components.MyAccountSideBar;
 
+import commons.base.BasePage;
 import org.openqa.selenium.WebDriver;
 
-public class OrdersPageObject extends MyAccountSideBarPageObject {
+public class OrdersComponent extends BasePage {
     WebDriver driver;
-    public OrdersPageObject(WebDriver driver){
-
-        super(driver);
+    public OrdersComponent(WebDriver driver){
         this.driver=driver;
     }
 

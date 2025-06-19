@@ -70,7 +70,7 @@ public class RegisterTestData {
             return this;
         }
 
-        public Builder confirmPassword (String password){
+        public Builder confirmPassword (String confirmPassword){
             this.confirmPassword = confirmPassword;
             return this;
         }

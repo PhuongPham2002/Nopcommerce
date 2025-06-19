@@ -2,13 +2,14 @@ package actions.components.MyAccountSideBar;
 
 import actions.pageObject.HomePageObject;
 import actions.pageObject.PageGenerator;
+import commons.base.BasePage;
+import dataObjects.CustomerData;
 import interfaces.componentUI.myAccountSideBar.ChangePasswordPageUI;
 import org.openqa.selenium.WebDriver;
 
-public class ChangePasswordPageObject extends MyAccountSideBarPageObject {
+public class ChangePasswordComponent extends BasePage {
     WebDriver driver;
-    public ChangePasswordPageObject (WebDriver driver){
-        super(driver);
+    public ChangePasswordComponent(WebDriver driver){
         this.driver = driver;
     }
     public void clickChangePasswordButton() {
@@ -16,10 +17,12 @@ public class ChangePasswordPageObject extends MyAccountSideBarPageObject {
         clickElement(driver,ChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
     }
     
-    public void changePassword(String oldPassword, String password) {
-        enterTextboxByID(driver,ChangePasswordPageUI.PASSWORD_TEXTBOX_BY_ID,"OldPassword",oldPassword);
-        enterTextboxByID(driver,ChangePasswordPageUI.PASSWORD_TEXTBOX_BY_ID,"NewPassword",password);
-        enterTextboxByID(driver,ChangePasswordPageUI.PASSWORD_TEXTBOX_BY_ID,"ConfirmNewPassword",password);
+    public void changePassword(CustomerData customerData) {
+        log.info("old = " + customerData.getOldPassword());
+        log.info("new = " + customerData.getNewPassword());
+        enterTextboxByID(driver,ChangePasswordPageUI.PASSWORD_TEXTBOX_BY_ID,customerData.getOldPassword(),"OldPassword");
+        enterTextboxByID(driver,ChangePasswordPageUI.PASSWORD_TEXTBOX_BY_ID,customerData.getNewPassword(),"NewPassword");
+        enterTextboxByID(driver,ChangePasswordPageUI.PASSWORD_TEXTBOX_BY_ID,customerData.getNewPassword(),"ConfirmNewPassword");
         clickChangePasswordButton();
 
     }

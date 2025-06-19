@@ -22,8 +22,8 @@ public class LoginPageObject extends BasePage {
 
     @Step("Enter login form with email & password")
     public void enterLoginForm(String emailAddress, String password){
-        enterTextboxByID(driver,LoginPageUI.LOGIN_FORM_TEXTBOX_ID,"Email",emailAddress);
-        enterTextboxByID(driver,LoginPageUI.LOGIN_FORM_TEXTBOX_ID,"Password",password);
+        enterTextboxByID(driver,LoginPageUI.LOGIN_FORM_TEXTBOX_ID,emailAddress,"Email");
+        enterTextboxByID(driver,LoginPageUI.LOGIN_FORM_TEXTBOX_ID,password,"Password");
     }
     @Step("Get error login message")
     public String getErrorLoginMessage(){

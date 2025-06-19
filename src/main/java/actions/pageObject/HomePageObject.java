@@ -30,8 +30,7 @@ public class HomePageObject extends BasePage {
     }
 
     public LoginPageObject clickLoginLink() {
-        waitForElementClickable(driver, HomePageUI.LOGIN_LINK);
-        clickElement(driver,HomePageUI.LOGIN_LINK);
+        header.account.clickLoginLink();
         return PageGenerator.getLoginPage(driver);
     }
 

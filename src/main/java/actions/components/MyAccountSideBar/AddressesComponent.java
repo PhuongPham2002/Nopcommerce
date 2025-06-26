@@ -61,6 +61,7 @@ public class AddressesComponent extends BasePage {
         clickElement(driver,AddressesPageUI.ADD_NEW_BUTTON);
     }
     public void selectDropdownOptionByID(String idDropdownValue, String option){
+        waitForTextToBePresentInElement(driver,AddressesPageUI.ADDRESSES_DROPDOWN_BY_ID,option,idDropdownValue);
         waitForElementClickable(driver, AddressesPageUI.ADDRESSES_DROPDOWN_BY_ID, idDropdownValue);
         selectDropdownOption(driver,option, AddressesPageUI.ADDRESSES_DROPDOWN_BY_ID, idDropdownValue);
     }

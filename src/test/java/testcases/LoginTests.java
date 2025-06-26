@@ -21,7 +21,6 @@ public class LoginTests extends BaseTest {
     public void setupBeforeClassRun(String browser, String url) {
         WebDriver driver;
         driver = getBrowserDriver(browser,url);
-        log.info("Pre-condition: Open Login Page");
         homePage = PageGenerator.getHomePage(driver);
         loginPage = homePage.clickLoginLink();
     }

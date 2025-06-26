@@ -82,8 +82,6 @@ public class ElementHelper {
         getElement(driver,LocatorHelper.formatLocator(dynamicLocatorTemplate,dynamicParts)).sendKeys(Keys.DELETE);
     }
 
-
-
     public static String getElementText(WebDriver driver, String rawLocator){
         return getElement(driver,rawLocator).getText();
     }

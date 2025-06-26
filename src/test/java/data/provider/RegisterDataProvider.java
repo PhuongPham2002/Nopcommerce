@@ -57,7 +57,14 @@ public class RegisterDataProvider {
     @DataProvider(name="Mismatch confirm password")
     public Object[][] provideMismatchPassword() {
         return new Object[][]{
-                {new RegisterTestData(RegisterDataHelper.FIRST_NAME, RegisterDataHelper.LAST_NAME, RegisterDataHelper.getUniqueEmailAddress(), RegisterDataHelper.COMPANY_NAME,RegisterDataHelper.PASSWORD,"1234567", RegisterDataHelper.GENDER)}
+                {RegisterTestData.builder()
+                        .firstName(RegisterDataHelper.FIRST_NAME)
+                        .lastName(RegisterDataHelper.LAST_NAME)
+                        .emailAddress(RegisterDataHelper.getUniqueEmailAddress())
+                        .companyName(RegisterDataHelper.COMPANY_NAME)
+                        .password(RegisterDataHelper.PASSWORD)
+                        .confirmPassword("1234567890987")
+                        .gender(RegisterDataHelper.GENDER)}
         };
     }
 

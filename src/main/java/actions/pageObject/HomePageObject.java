@@ -15,7 +15,6 @@ public class HomePageObject extends BasePage {
 
         this.driver = driver;
         this.header = new HeaderComponent(driver);
-
     }
 
     public RegisterPageObject clickRegisterLink() {
@@ -35,8 +34,7 @@ public class HomePageObject extends BasePage {
     }
 
     public MyAccountSideBarPageObject clickMyAccountLink() {
-        waitForElementClickable(driver,HomePageUI.MY_ACCOUNT_LINK);
-        clickElement(driver,HomePageUI.MY_ACCOUNT_LINK);
+        header.account.clickMyAccountLink();
         return PageGenerator.getMyAccountSideBarPage(driver);
     }
 

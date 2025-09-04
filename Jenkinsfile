@@ -25,26 +25,27 @@ pipeline {
 		stage('Run Tests') {
             steps {
                 script {
+                def suitePath = "src/test/resources/${params.SUITE}"
                        if (isUnix()) {
                          if (env.BRANCH_NAME == 'dev') {
-                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          } else if (env.BRANCH_NAME == 'staging') {
-                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          } else if (env.BRANCH_NAME == 'master') {
-                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          } else {
-                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          }
                     } else {
                         // Windows
                          if (env.BRANCH_NAME == 'dev') {
-                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          } else if (env.BRANCH_NAME == 'staging') {
-                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          } else if (env.BRANCH_NAME == 'master') {
-                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                          } else {
-                           bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=src/test/resources/${params.SUITE}"
+                           bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${suitePath}"
                         }
                     }
                 }

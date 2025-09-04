@@ -28,7 +28,7 @@ pipeline {
                             sh "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
                          } else if (env.BRANCH_NAME == 'staging') {
                             sh "mvn clean test -DsuiteXmlFile=testng-regression.xml"
-                         } else if (env.BRANCH_NAME == 'prod') {
+                         } else if (env.BRANCH_NAME == 'master') {
                             sh "mvn clean test -DsuiteXmlFile=testng-full.xml"
                          } else {
                             sh "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
@@ -42,7 +42,7 @@ pipeline {
                          } else if (env.BRANCH_NAME == 'prod') {
                             bat "mvn clean test -DsuiteXmlFile=testng-full.xml"
                          } else {
-                         bat "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
+                           bat "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
                         }
                     }
                 }

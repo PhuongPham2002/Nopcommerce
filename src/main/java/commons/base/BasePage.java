@@ -268,12 +268,12 @@ public class BasePage {
         WaitHelper.waitForAttributeToBe(driver,rawLocator,attributeName,value);
     }
 
-    public void enterTextboxByID(WebDriver driver,String dynamicLocatorTemplate,String idTextboxValue, String valueToSend ){
+    public void enterTextboxByID(WebDriver driver,String dynamicLocatorTemplate,String valueToSend,String idTextboxValue){
        waitForElementVisible(driver,dynamicLocatorTemplate,idTextboxValue);
        sendKeyToElement(driver,dynamicLocatorTemplate,valueToSend,idTextboxValue);}
 
 
-    public String getAttributeValueByID(WebDriver driver,String dynamicLocatorTemplate,String idTextboxValue,String attributeValue){
+    public String getAttributeValueByID(WebDriver driver,String dynamicLocatorTemplate,String attributeValue,String idTextboxValue){
         waitForElementVisible(driver,dynamicLocatorTemplate,idTextboxValue);
         return getDOMPropertyValue(driver,dynamicLocatorTemplate,attributeValue,idTextboxValue);}
 

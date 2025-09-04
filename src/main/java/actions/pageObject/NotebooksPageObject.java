@@ -35,6 +35,7 @@ public class NotebooksPageObject extends BasePage {
         sort.selectSortOption(sortOption);
     }
     public boolean isProductNameSortedByAscending() {
+        WaitHelper.waitForLoadingScreenInvisible(driver);
         waitForListElementsVisible(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
         List<WebElement> allNotebooksProduct = getListElement(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
         List<String> allNotebooksProductName = new ArrayList<>();
@@ -47,34 +48,42 @@ public class NotebooksPageObject extends BasePage {
 
 
     public boolean isProductNameSortedByDescending() {
+        WaitHelper.waitForLoadingScreenInvisible(driver);
         waitForListElementsVisible(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
         List<WebElement> allNotebooksProduct = getListElement(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        log.info("Product size before sorting: " + allNotebooksProduct.size());
         List<String> allNotebooksProductName = new ArrayList<>();
         for (WebElement notebookProduct:allNotebooksProduct){
             allNotebooksProductName.add(notebookProduct.getText());}
+        log.info("List product before sorting: " + allNotebooksProductName);
         List<String> tobeSortAllNotebooksProductName = new ArrayList<>(allNotebooksProductName);
         Collections.sort(tobeSortAllNotebooksProductName);
+        log.info("List after sorting ascending: "+ tobeSortAllNotebooksProductName);
         Collections.reverse(tobeSortAllNotebooksProductName);
+        log.info("List after sorting from ascending to descending "+tobeSortAllNotebooksProductName);
         return tobeSortAllNotebooksProductName.equals(allNotebooksProductName);
     }
 
     public boolean isProductPriceSortedByAscending() {
+        WaitHelper.waitForLoadingScreenInvisible(driver);
         waitForListElementsVisible(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
         List<WebElement> allNotebooksProduct = getListElement(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
+        log.info("Product size before sorting: " + allNotebooksProduct.size());
         List<String> allNotebooksProductPrice = new ArrayList<>();
         for (WebElement notebookProduct:allNotebooksProduct){
             allNotebooksProductPrice.add(notebookProduct.getText().substring(1));}
-        log.info("Danh sách chưa sort: " +allNotebooksProductPrice);
-        List<String> tobeSortAllNotebooksProductName = new ArrayList<>(allNotebooksProductPrice);
-        Collections.sort(tobeSortAllNotebooksProductName);
-        log.info("Danh sách sau khi sort: "+ tobeSortAllNotebooksProductName);
-        return tobeSortAllNotebooksProductName.equals(allNotebooksProductPrice);
+        log.info("Product price before sorting: " + allNotebooksProductPrice);
+        List<String> tobeSortAllNotebooksProductPrice = new ArrayList<>(allNotebooksProductPrice);
+        Collections.sort(tobeSortAllNotebooksProductPrice);
+        log.info("Product price after sorting ascending: "+tobeSortAllNotebooksProductPrice);
+        return tobeSortAllNotebooksProductPrice.equals(allNotebooksProductPrice);
 
 
 
     }
 
     public boolean isProductPriceSortedByDescending() {
+        WaitHelper.waitForLoadingScreenInvisible(driver);
         waitForListElementsVisible(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
         List<WebElement> allNotebooksProduct = getListElement(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
         List<String> allNotebooksProductPrice = new ArrayList<>();
@@ -90,6 +99,8 @@ public class NotebooksPageObject extends BasePage {
     }
 
     public boolean isProductListSizeEqualTo (int numberOfDisplayedProducts) {
+        WaitHelper.waitForLoadingScreenInvisible(driver);
+        waitForNumberOfElementsTobe(driver,NotebooksPageUI.ITEM_BOX_GRID,numberOfDisplayedProducts);
         //waitForListElementsVisible(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT);
         //SAU NÀY IMPLEMENT THÊM FLUENT WAIT SAU CHO LAYOUT (GRID CO LẠI HOÀN TOÀN)
         waitForNumberOfElementsTobe(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT,numberOfDisplayedProducts);
@@ -98,6 +109,7 @@ public class NotebooksPageObject extends BasePage {
     }
 
     public boolean isProductListSizeAtMost (int expectedSize){
+        WaitHelper.waitForLoadingScreenInvisible(driver);
         waitForListElementsVisible(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT);
         log.info("Số lượng sản phẩm hiển thị: "+ getListElementsSize(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT));
         return getListElementsSize(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT) <= expectedSize;
@@ -133,7 +145,7 @@ public class NotebooksPageObject extends BasePage {
     }
 
     public ProductDetailPageObject clickProduct(String productName) {
-        waitForLoadingIconInvisible(driver);
+        //waitForLoadingIconInvisible(driver);
         waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
         clickElement(driver,NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
         return PageGenerator.getProductDetailPage(driver);

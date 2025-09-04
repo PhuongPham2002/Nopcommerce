@@ -69,5 +69,6 @@ public class AllureTestListener extends BaseTest implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult arg0) {
         // TODO Auto-generated method stub
+
     }
 }

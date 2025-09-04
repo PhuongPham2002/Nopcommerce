@@ -4,7 +4,7 @@
 <suite name="master-suite">
 
     <suite-files>
-        <suite-file path="nopCommerce.xml"/>
+        <suite-file path="testng-smoke.xml"/>
         
     </suite-files>
 </suite>

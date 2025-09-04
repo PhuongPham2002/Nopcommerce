@@ -39,7 +39,7 @@ public class RegisterLoginHelper extends BaseTest {
         homePage = registerPage.clickRegisterButton();
 
         Assert.assertEquals(homePage.getSuccessfulRegisterMessage(),"Your registration completed");
-        homePage = registerPage.clickLogoutButton();
+        homePage = registerPage.clickLogoutLink();
 
         //Login with registered data:
         loginPage = homePage.clickLoginLink();

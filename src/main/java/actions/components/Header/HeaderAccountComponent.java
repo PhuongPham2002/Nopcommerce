@@ -27,5 +27,18 @@ public class HeaderAccountComponent extends BasePage {
         waitForElementClickable(driver,HeaderAccountComponentUI.REGISTER_LINK);
         clickElement(driver,HeaderAccountComponentUI.REGISTER_LINK);
     }
+    public void clickLogoutLink(){
+        waitForElementClickable(driver,HeaderAccountComponentUI.LOGOUT_LINK);
+        clickElement(driver,HeaderAccountComponentUI.LOGOUT_LINK);
+    }
+    public void clickLoginLink(){
+        waitForElementClickable(driver,HeaderAccountComponentUI.LOGIN_LINK);
+        clickElement(driver,HeaderAccountComponentUI.LOGIN_LINK);
+    }
+
+    public void clickMyAccountLink(){
+        waitForElementClickable(driver,HeaderAccountComponentUI.ACCOUNT_LINK);
+        clickElement(driver,HeaderAccountComponentUI.ACCOUNT_LINK);
+    }
 
 }

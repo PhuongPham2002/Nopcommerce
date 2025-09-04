@@ -141,13 +141,6 @@ public class WishlistTests extends BaseTest {
     @Test
     public void Wishlist05_ViewRecentlyViewedProduct() {
         notebooksPage= (NotebooksPageObject) compareProductsListPage.hoverToHeaderProductCategoryAndClickToSubCategoryVisible("Computers","Notebooks");
-        ;
-//        OpenProductAndGoBack("Apple MacBook Pro");
-//        OpenProductAndGoBack("Asus Laptop");
-//        OpenProductAndGoBack("HP Envy 15.6-Inch Sleekbook");
-//        OpenProductAndGoBack("HP Spectre XT Pro UltraBook");
-//        OpenProductAndGoBack("Lenovo Thinkpad Carbon Laptop");
-
 
         List<String> productToView = new ArrayList<>(Arrays.asList(
                 "Apple MacBook Pro",
@@ -156,17 +149,6 @@ public class WishlistTests extends BaseTest {
                 "Lenovo Thinkpad Carbon Laptop",
                 "HP Spectre XT Pro UltraBook"));
         viewMultipleProducts(productToView);
-
-
-//        productDetailPage = notebooksPage.clickProduct("Apple MacBook Pro");
-//        productDetailPage.clickBackToPreviousPage();
-//        productDetailPage=notebooksPage.clickProduct("Asus Laptop");
-//        productDetailPage.clickBackToPreviousPage();
-//        productDetailPage=notebooksPage.clickProduct("HP Envy 15.6-Inch Sleekbook");
-//        productDetailPage.clickBackToPreviousPage();
-//        productDetailPage= notebooksPage.clickProduct("HP Spectre XT Pro UltraBook");
-//        productDetailPage.clickBackToPreviousPage();
-//        productDetailPage=notebooksPage.clickProduct("Lenovo Thinkpad Carbon Laptop");
         recentlyViewedPage = compareProductsListPage.clickRecentlyViewedProducts();
         Assert.assertTrue(recentlyViewedPage.isRecentlyViewedProductsMatched(expectedProductNames));
         Assert.assertFalse(recentlyViewedPage.isRecentlyViewedProductsMatched(unexpectedProductNames));

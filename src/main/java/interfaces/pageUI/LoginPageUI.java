@@ -8,7 +8,7 @@ public class LoginPageUI {
     public final static String EMPTY_PASSWORD_ERROR_MESSAGE ="css=div.validation-summary-errors";
     public final static String INVALID_PASSWORD_ERROR_MESSAGE ="css=div.validation-summary-errors";
     public final static String LOGIN_FORM_TEXTBOX_ID ="ID=%s";
-    public final static String LOGIN_ERROR_MESSAGE="id=email-error";
+    public final static String LOGIN_ERROR_MESSAGE="id=Email-error";
     public static final String WRONG_PASSWORD_ERROR_MESSAGE ="css=div.validation-summary-errors";
 
     //Cucumber Implement:

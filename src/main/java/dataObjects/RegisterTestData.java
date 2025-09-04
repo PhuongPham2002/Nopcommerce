@@ -70,10 +70,11 @@ public class RegisterTestData {
             return this;
         }
 
-        public Builder confirmPassword (String password){
+        public Builder confirmPassword (String confirmPassword){
             this.confirmPassword = confirmPassword;
             return this;
         }
+
 
         public RegisterTestData build(){
             RegisterTestData registerTestData = new RegisterTestData();
@@ -92,32 +93,32 @@ public class RegisterTestData {
 
     }
 
-    public RegisterTestData(String firstName, String lastName, String emailAddress,String password,String confirmPassword,String gender) {
-        this.firstName = firstName;
-        this.gender = gender;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-
-    }
-    public RegisterTestData(String firstName, String lastName, String emailAddress,String password,String confirmPassword) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-
-    }
-
-    public RegisterTestData(String firstName, String lastName, String emailAddress, String companyName, String password, String confirmPassword,String gender) {
-        this.firstName = firstName;
-        this.gender = gender;
-        this.lastName = lastName;
-        this.emailAddress = emailAddress;
-        this.companyName = companyName;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-    }
+//    public RegisterTestData(String firstName, String lastName, String emailAddress,String password,String confirmPassword,String gender) {
+//        this.firstName = firstName;
+//        this.gender = gender;
+//        this.lastName = lastName;
+//        this.emailAddress = emailAddress;
+//        this.password = password;
+//
+//    }
+//    public RegisterTestData(String firstName, String lastName, String emailAddress,String password,String confirmPassword) {
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.emailAddress = emailAddress;
+//        this.password = password;
+//        this.confirmPassword = confirmPassword;
+//
+//    }
+//
+//    public RegisterTestData(String firstName, String lastName, String emailAddress, String companyName, String password, String confirmPassword,String gender) {
+//        this.firstName = firstName;
+//        this.gender = gender;
+//        this.lastName = lastName;
+//        this.emailAddress = emailAddress;
+//        this.companyName = companyName;
+//        this.password = password;
+//        this.confirmPassword = confirmPassword;
+//    }
 
     @Override
     public String toString() {

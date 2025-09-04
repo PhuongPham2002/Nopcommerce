@@ -20,7 +20,6 @@ public class ProductDetailPageObject extends BasePage {
         this.notificationBar = new NotificationBarComponent(driver);
     }
 
-
     public WishListPageObject clickWishListLinkFromHeader() {
         waitForLoadingIconInvisible(driver);
         waitForElementInvisible(driver,ProductDetailPageUI.ADD_WISHLIST_SUCCESSFUL_MESSAGE);
@@ -128,11 +127,42 @@ public class ProductDetailPageObject extends BasePage {
         header.account.clickShoppingCartLink();
         return PageGenerator.getShoppingCartPage(driver);
     }
-
     public String getProductPrice() {
         WaitHelper.waitForTextVisible(driver,ProductDetailPageUI.PRODUCT_PRICE);
         String productPrice = getDOMPropertyValue(driver,ProductDetailPageUI.PRODUCT_PRICE,"innerText").trim().substring(1);
         return productPrice;
 
+    }
+    public void clickAddYourReviewLink() {
+        waitForElementClickable(driver,ProductDetailPageUI.ADD_REVIEW_LINK);
+        clickElement(driver,ProductDetailPageUI.ADD_REVIEW_LINK);
+
+    }
+    public void enterReviewTitle(String reviewTitle) {
+        waitForElementVisible(driver,ProductDetailPageUI.PRODUCT_REVIEW_TITLE);
+        sendKeyToElement(driver,ProductDetailPageUI.PRODUCT_REVIEW_TITLE,reviewTitle);
+    }
+    public void enterReviewText(String reviewBody) {
+        waitForElementVisible(driver,ProductDetailPageUI.PRODUCT_REVIEW_BODY);
+        sendKeyToElement(driver,ProductDetailPageUI.PRODUCT_REVIEW_BODY,reviewBody);
+    }
+
+    public void selectProductRating(String rating) {
+        waitForElementVisible(driver,ProductDetailPageUI.PRODUCT_RATING,rating);
+        checkNativeRadio(driver,ProductDetailPageUI.PRODUCT_RATING,rating);
+    }
+
+    public void clickSubmitReview() {
+        waitForElementClickable(driver,ProductDetailPageUI.SUBMIT_REVIEW_BUTTON);
+        clickElement(driver,ProductDetailPageUI.SUBMIT_REVIEW_BUTTON);
+    }
+
+    public String getSuccessfulMessageForAddingProductReview() {
+        return notificationBar.getNotificationMessage("Product review is successfully added.");
+
+    }
+
+    public void clickMyAccountLink() {
+        header.account.clickMyAccountLink();
     }
 }

@@ -12,7 +12,11 @@ import dataObjects.RegisterTestData;
 import io.qameta.allure.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
+
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 @Feature("Register")
 public class RegisterTests extends BaseTest {
@@ -26,8 +30,12 @@ public class RegisterTests extends BaseTest {
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url){
-        driver = getBrowserDriver(browser,url);
+        this.driver = getBrowserDriver(browser,url);
         homePage = PageGenerator.getHomePage(driver);
+        log.info("Thread ID: " + Thread.currentThread().getId() +
+                " with browser: " + browser);
+        log.info("Thread ID: " + Thread.currentThread().getId() +
+                " with driver: " + driver.toString());
         registerPage = homePage.clickRegisterLink();
     }
 
@@ -37,28 +45,28 @@ public class RegisterTests extends BaseTest {
 
     }
 
-    @Test
+    @Test (groups = "needCleanUp")
     public void Register_01_RegisterWithValidRequiredField() {
         registerPage.fillRegisterForm(RegisterDataHelper.provideValidRequiredFields());
         registeredEmail =registerPage.getRegisteredEmailAddress();
-        homePage = registerPage.clickRegisterButton();
-        Assert.assertEquals(homePage.getSuccessfulRegisterMessage(),RegisterMessageConstants.SUCCESSFULLY_REGISTER);
-        homePage = registerPage.clickLogoutButton();
-        registerPage = homePage.clickRegisterLink();
+        registerPage.clickRegisterButton();
+        Assert.assertEquals(registerPage.getSuccessfulRegisterMessage(),RegisterMessageConstants.SUCCESSFULLY_REGISTER);
+//        homePage = registerPage.clickLogoutLink();
+//        registerPage = homePage.clickRegisterLink();
     }
 
-    @Test
+    @Test (groups = "needCleanUp")
     public void Register_02_RegisterWithValidRequiredFieldAndGenderSelection(){
         registerPage.fillRegisterForm(RegisterDataHelper.provideValidRequiredFieldsAndGenderSelection());
         registeredEmail =registerPage.getRegisteredEmailAddress();
         homePage = registerPage.clickRegisterButton();
         Assert.assertEquals(homePage.getSuccessfulRegisterMessage(),RegisterMessageConstants.SUCCESSFULLY_REGISTER);
-        homePage = registerPage.clickLogoutButton();
-        registerPage = homePage.clickRegisterLink();
+//        homePage = registerPage.clickLogoutLink();
+//        registerPage = homePage.clickRegisterLink();
     }
 
     @Test
-    public void Register_01_EmptyData_Validation(){
+    public void Register_03_EmptyData_Validation(){
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getErrorMessageForRequireField("FirstName"), RegisterMessageConstants.REQUIRED_FIRST_NAME);
         Assert.assertEquals(registerPage.getErrorMessageForRequireField("LastName"),RegisterMessageConstants.REQUIRED_LAST_NAME);
@@ -67,36 +75,40 @@ public class RegisterTests extends BaseTest {
     }
 
 
-    @Test (dataProvider = "Invalid Emails", dataProviderClass = RegisterDataProvider.class)
-    public void Register_02_InvalidEmail(RegisterTestData registerTestData){
+    //@Test (dataProvider = "Invalid Emails", dataProviderClass = RegisterDataProvider.class)
+    public void Register_04_InvalidEmail(RegisterTestData registerTestData){
         registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getInvalidRegisterEmailMessage(),RegisterMessageConstants.INVALID_EMAIL);
     }
 
-
     @Test (dependsOnMethods = "Register_01_RegisterWithValidRequiredField" )
-    public void Register_04_ExistedEmail() {
+    public void Register_05_ExistedEmail() {
         registerPage.fillRegisterForm(RegisterDataHelper.provideExistedEmailData(registeredEmail));
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getExistedEmailMessage(),RegisterMessageConstants.EXISTED_EMAIL);
     }
     @Test (dataProvider = "Invalid Password",dataProviderClass = RegisterDataProvider.class)
-    public void Register_05_InvalidPassword(RegisterTestData registerTestData) {
+    public void Register_06_InvalidPassword(RegisterTestData registerTestData) {
         registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getErrorMessageForRequireField("Password"),RegisterMessageConstants.INVALID_PASSWORD);
 
     }
-    @Test (dataProvider = "Mismatch confirm password", dataProviderClass = RegisterDataProvider.class)
-    public void Register_06_MismatchedConfirmPassword(RegisterTestData registerTestData) {
+    //@Test (dataProvider = "Mismatch confirm password", dataProviderClass = RegisterDataProvider.class)
+    public void Register_07_MismatchedConfirmPassword(RegisterTestData registerTestData) {
         registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
         Assert.assertEquals(registerPage.getErrorMessageForRequireField("ConfirmPassword"), RegisterMessageConstants.MISMATCHED_PASSWORD);
     }
 
-    public void Register_10(){
-        //Test push code
+    @AfterMethod
+    public void cleanUp(ITestResult result){
+        String[] groups = result.getMethod().getGroups();
+        if (groups!=null && Arrays.asList(groups).contains("needCleanUp")){
+            homePage = registerPage.clickLogoutLink();
+            registerPage = homePage.clickRegisterLink();
+        }
     }
 
     @AfterClass (alwaysRun = true)

@@ -22,6 +22,8 @@ public class WaitHelper {
     public static void waitForElementVisible(WebDriver driver, String rawLocator){
         getWebDriverWait(driver).until(ExpectedConditions.visibilityOfElementLocated(LocatorHelper.getByLocator(rawLocator)));
     }
+
+
     public static void waitForElementVisible(WebDriver driver, String dynamicLocatorTemplate, String...dynamicParts){
         getWebDriverWait(driver).until(ExpectedConditions.visibilityOfElementLocated(LocatorHelper.getByLocator(LocatorHelper.formatLocator(dynamicLocatorTemplate,dynamicParts))));
     }

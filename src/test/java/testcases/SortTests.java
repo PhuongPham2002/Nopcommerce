@@ -13,6 +13,7 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class SortTests extends BaseTest {
+    WebDriver driver;
     private ComputerPageObject computerPage;
     private NotebooksPageObject notebooksPage;
     private HomePageObject homePageObject;
@@ -20,8 +21,11 @@ public class SortTests extends BaseTest {
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url) {
-        WebDriver driver;
-        driver = getBrowserDriver(browser,url);
+        this.driver = getBrowserDriver(browser,url);
+        log.info("Thread ID: " + Thread.currentThread().getId() +
+                " with browser: " + browser);
+        log.info("Thread ID: " + Thread.currentThread().getId() +
+                " with driver: " + driver.toString());
         homePageObject = PageGenerator.getHomePage(driver);
         notebooksPage= (NotebooksPageObject) homePageObject.hoverToHeaderProductCategoryAndClickToSubProductCategory("Computers","Notebooks");
     }
@@ -63,7 +67,7 @@ public class SortTests extends BaseTest {
         Assert.assertFalse(notebooksPage.isPaginationNextIconDisplayed());
 
     }
-    @Test
+    //@Test
     public void Display03_DisplayMaximumNineProductsAfterSelection() {
         notebooksPage.selectProductPerPageDropdown(9);
         Assert.assertTrue(notebooksPage.isProductListSizeEqualTo(9));

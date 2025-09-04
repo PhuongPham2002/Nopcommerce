@@ -13,4 +13,5 @@ public class NotebooksPageUI {
     public static final String SUCCESSFUL_MESSAGE_ADD_TO_COMPARE="CSS=div.bar-notification.success p";
     public static final String DYNAMIC_ADD_TO_CART_BUTTON="XPATH=//a[text()='%s']/parent::h2[@class='product-title']/following-sibling::div[@class='add-info']//button[contains(@class,'product-box-add-to-cart-button')]";
     public static final String ESTIMATE_SHIPPING_BUTTON="CSS=a.estimate-shipping-button";
+    public static final String ITEM_BOX_GRID="CSS=div.item-box";
 }

@@ -15,7 +15,7 @@ public class Test_EnvConfig extends BaseTest {
     @Parameters({"browser"})
     public void setupBeforeClassRun(String browser) {
         WebDriver driver;
-        driver = getBrowserDriverTest(browser);
+        //driver = getBrowserDriverTest(browser);
 
     }
 

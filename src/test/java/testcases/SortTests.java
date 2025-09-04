@@ -21,7 +21,7 @@ public class SortTests extends BaseTest {
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url) {
-        this.driver = getBrowserDriver(browser,url);
+        this.driver = getBrowserDriver();
         log.info("Thread ID: " + Thread.currentThread().getId() +
                 " with browser: " + browser);
         log.info("Thread ID: " + Thread.currentThread().getId() +

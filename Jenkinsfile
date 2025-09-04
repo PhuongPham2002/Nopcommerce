@@ -1,8 +1,9 @@
 pipeline {
 	agent any
 	parameters {
-	choice (name: 'SUITE', choices:['testng-smoke.xml','testng-regression.xml','testng-sanity.xml' ], description: 'Chọn suite cần chạy')
-		booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Chạy headless mod')
+	choice(name:'BROWSER', choices:['chrome','firefox','edge'], description:'Choose browser to run test')
+    choice(name: 'TEST_ENV', choices: ['dev','staging','production'], description: 'Choose testing environment to run test')
+    booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Chạy headless mod')
 	}
 	stages {
 		 stage('Info') {
@@ -25,24 +26,24 @@ pipeline {
                 script {
                        if (isUnix()) {
                          if (env.BRANCH_NAME == 'dev') {
-                            sh "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
+                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
                          } else if (env.BRANCH_NAME == 'staging') {
-                            sh "mvn clean test -DsuiteXmlFile=testng-regression.xml"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
                          } else if (env.BRANCH_NAME == 'master') {
-                            sh "mvn clean test -DsuiteXmlFile=testng-full.xml"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
                          } else {
-                            sh "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
                          }
                     } else {
                         // Windows
                          if (env.BRANCH_NAME == 'dev') {
-                            bat "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
                          } else if (env.BRANCH_NAME == 'staging') {
-                            bat "mvn clean test -DsuiteXmlFile=testng-regression.xml"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
                          } else if (env.BRANCH_NAME == 'master') {
-                            bat "mvn clean test -DsuiteXmlFile=testng-full.xml"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
                          } else {
-                           bat "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
+                           bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
                         }
                     }
                 }

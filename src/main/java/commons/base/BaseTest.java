@@ -28,83 +28,35 @@ public class BaseTest {
     //public WebDriver driver;
     protected final Logger log;
     public BaseTest(){log = LogManager.getLogger(getClass());}
-    public final static String ENV_NAME = SystemProperties.getProperty("env");
+    public final static String ENV_NAME = SystemProperties.getProperty("testEnv");
+    public final static String BROWSER_NAME = SystemProperties.getProperty("browser");
     private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     public WebDriver getDriver(){
         return driver.get();
     }
 
-    public WebDriver getBrowserDriver(String browserName, String environment) {
-        String url = getEnvironmentTest(environment);
-        BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
-        switch (browserList){
-            case CHROME:
-                driver.set(new ChromeDriver());
-                break;
-            case FIREFOX:
-                driver.set(new FirefoxDriver());
-                break;
-            case EDGE:
-                driver.set(new EdgeDriver());
-                break;
-            case SAFARI:
-                driver.set(new SafariDriver());
-                break;
-            default:
-                throw new RuntimeException("Trình duyệt nhập vào không được hỗ trợ "+browserName);
-        }
-        driver.get().manage().window().maximize();
-        driver.get().get(url);
-        return driver.get();
-    }
-    public WebDriver getBrowserDriverTest(String browserName) {
+    public WebDriver getBrowserDriver() {
         String url = getEnvironmentTest();
-        BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
-        switch (browserList){
-            case CHROME:
+        switch (BROWSER_NAME.toLowerCase()){
+            case "chrome":
                 driver.set(new ChromeDriver());
                 break;
-            case FIREFOX:
+            case "firefox":
                 driver.set(new FirefoxDriver());
                 break;
-            case EDGE:
+            case "edge":
                 driver.set(new EdgeDriver());
                 break;
-            case SAFARI:
+            case "safari":
                 driver.set(new SafariDriver());
                 break;
             default:
-                throw new RuntimeException("Trình duyệt nhập vào không được hỗ trợ "+browserName);
+                throw new RuntimeException("Trình duyệt nhập vào không được hỗ trợ "+ BROWSER_NAME);
         }
         driver.get().manage().window().maximize();
         driver.get().get(url);
         return driver.get();
     }
-
-
-    public WebDriver getBrowserDriverMaven (String browserName, String url) {
-        BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
-        switch (browserList){
-            case CHROME:
-                driver.set(new ChromeDriver());
-                break;
-            case FIREFOX:
-                driver.set(new FirefoxDriver());
-                break;
-            case EDGE:
-                driver.set(new EdgeDriver());
-                break;
-            case SAFARI:
-                driver.set(new SafariDriver());
-                break;
-            default:
-                throw new RuntimeException("Trình duyệt nhập vào không được hỗ trợ "+browserName);
-        }
-        driver.get().manage().window().maximize();
-        driver.get().get(url);
-        return driver.get();
-    }
-
 
     private String getEnvironmentTest() {
         String url;
@@ -124,24 +76,6 @@ public class BaseTest {
         return url;
 
     }
-    private String getEnvironmentTest(String environment) {
-        String url;
-        switch (environment.toLowerCase()){
-            case "dev":
-                url ="https://localhost:59579/";
-                break;
-            case "staging":
-                url ="https://staging.localhost:59579/";
-            case "production":
-                url ="https://demo.nopcommerce.com/";
-                break;
-            default:
-                throw new RuntimeException("Environment is not valid :" + ENV_NAME);
-        }
-        return url;
-
-    }
-
 
     public void closeBrowserDriver(){
         String cmd = null;

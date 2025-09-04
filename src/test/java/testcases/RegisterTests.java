@@ -30,7 +30,7 @@ public class RegisterTests extends BaseTest {
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url){
-        this.driver = getBrowserDriver(browser,url);
+        this.driver = getBrowserDriver();
         homePage = PageGenerator.getHomePage(driver);
         log.info("Thread ID: " + Thread.currentThread().getId() +
                 " with browser: " + browser);

@@ -43,7 +43,7 @@ public class WishlistTests extends BaseTest {
     public void setupBeforeClassRun(String browser, String url) {
         WebDriver driver;
         productName = "Apple MacBook Pro";
-        driver = getBrowserDriver(browser,url);
+        driver = getBrowserDriver();
         CommonHelper.setCookies(driver, RegisterLoginHelper.getNopCommerceCookie());
         log.info("Open HomePage");
 

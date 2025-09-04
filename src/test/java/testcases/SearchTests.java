@@ -28,7 +28,7 @@ public class SearchTests extends BaseTest {
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url) {
         WebDriver driver;
-        driver = getBrowserDriver(browser,url);
+        driver = getBrowserDriver();
         CommonHelper.setCookies(driver, RegisterLoginHelper.getNopCommerceCookie());
         homePageObject = PageGenerator.getHomePage(driver);
         footerComponent = PageGenerator.getFooterComponent(driver);

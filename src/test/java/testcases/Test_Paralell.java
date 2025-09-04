@@ -12,7 +12,7 @@ public class Test_Paralell extends BaseTest {
     @Parameters({"browser"})
     public void setupBeforeClassRun(String browser) {
         WebDriver driver;
-        driver = getBrowserDriverTest(browser);
+        //river = getBrowserDriverTest(browser);
 
     }
 

@@ -32,7 +32,7 @@ public class MyAccountTests extends BaseTest {
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url) {
-        driver = getBrowserDriver(browser,url);
+        driver = getBrowserDriver();
         CommonHelper.setCookies(driver, RegisterLoginHelper.getNopCommerceCookie());
         homePage=PageGenerator.getHomePage(driver);
         myAccountSideBarPage = homePage.clickMyAccountLink();

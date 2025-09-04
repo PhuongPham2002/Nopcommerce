@@ -20,11 +20,9 @@ public class LoginTests extends BaseTest {
     private LoginPageObject loginPage;
 
     @BeforeClass
-    @Parameters({"browser","environment"})
-    public void setupBeforeClassRun(String browser, String serverName) {
+    public void setupBeforeClassRun() {
         WebDriver driver;
-        PropertiesConfig.getProperties("appUrl",serverName);
-        driver = getBrowserDriver(browser,serverName);
+        driver = getBrowserDriver();
         homePage = PageGenerator.getHomePage(driver);
         loginPage = homePage.clickLoginLink();
     }

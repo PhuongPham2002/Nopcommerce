@@ -12,6 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -22,14 +23,14 @@ public class RegisterLoginHelper extends BaseTest {
     private LoginPageObject loginPage;
     private String registeredEmail;
 
-    @Setter @Getter
     private static Set<Cookie> nopCommerceCookie;
 
-
+    public static Set<Cookie> getNopCommerceCookie() {
+        return nopCommerceCookie;
+    }
     @BeforeTest
-    @Parameters({"browser","url"})
     public void preconditionBeforeTest(String browser, String url){
-        driver = getBrowserDriver(browser,url);
+        driver = getBrowserDriver();
         homePage = PageGenerator.getHomePage(driver);
         registerPage = homePage.clickRegisterLink();
 
@@ -46,7 +47,7 @@ public class RegisterLoginHelper extends BaseTest {
         loginPage.enterLoginForm(registeredEmail,RegisterDataHelper.PASSWORD);
         homePage=loginPage.clickLoginButton();
 
-        nopCommerceCookie=driver.manage().getCookies();
+        nopCommerceCookie =driver.manage().getCookies();
         log.info("all cookie value :"+nopCommerceCookie);
         driver.quit();
 

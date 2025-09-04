@@ -26,7 +26,7 @@ public class OrderTests extends BaseTest {
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url) {
         WebDriver driver;
-        driver = getBrowserDriver(browser, url);
+        driver = getBrowserDriver();
         CommonHelper.setCookies(driver, RegisterLoginHelper.getNopCommerceCookie());
         homePage = PageGenerator.getHomePage(driver);
         desktopsPage = (DesktopsPageObject) homePage.hoverToHeaderProductCategoryAndClickToSubProductCategory("Computers", "Desktops");

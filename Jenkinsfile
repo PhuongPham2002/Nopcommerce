@@ -1,6 +1,7 @@
 pipeline {
 	agent any
 	parameters {
+	choices(name:'SUITE', choices:['testng-smoke.xml','testng-regression.xml'],description:'choose test suite to run')
 	choice(name:'BROWSER', choices:['chrome','firefox','edge'], description:'Choose browser to run test')
     choice(name: 'TEST_ENV', choices: ['dev','staging','production'], description: 'Choose testing environment to run test')
     booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Chạy headless mod')
@@ -26,7 +27,7 @@ pipeline {
                 script {
                        if (isUnix()) {
                          if (env.BRANCH_NAME == 'dev') {
-                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
+                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -Dtest"
                          } else if (env.BRANCH_NAME == 'staging') {
                             sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
                          } else if (env.BRANCH_NAME == 'master') {

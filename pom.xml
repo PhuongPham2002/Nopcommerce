@@ -18,6 +18,7 @@
         <aspectj.version>1.9.20</aspectj.version>
         <poi.version>5.3.0</poi.version>
         <environment>dev</environment>
+        <suiteXmlFile>src/test/resources/env-dev.nopCommerce.xml</suiteXmlFile>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -93,6 +94,7 @@
             <version>4.7.0</version>
         </dependency>
     </dependencies>
+
     <build>
         <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
         <plugins>
@@ -122,7 +124,7 @@
                 <configuration>
                     <!-- Run TestNG xml file -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/env-dev.nopCommerce.xml</suiteXmlFile>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <!-- Argument -->
@@ -136,60 +138,5 @@
         </plugins>
 
     </build>
-    <profiles>
-        <profile>
-            <id>DEV</id>
-            <build>
-               <plugins>
-                   <plugin>
-                       <groupId>org.apache.maven.plugins</groupId>
-                       <artifactId>maven-surefire-plugin</artifactId>
-                       <version>3.1.2</version>
-                       <configuration>
-                           <!-- Run TestNG xml file -->
-                           <suiteXmlFiles>
-                               <suiteXmlFile>src/test/resources/env-dev.nopCommerce.xml</suiteXmlFile>
-                           </suiteXmlFiles>
-
-                           <!-- Argument -->
-                           <argLine>
-                               -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                           </argLine>
-                       </configuration>
-
-                   </plugin>
-               </plugins>
-            </build>
-        </profile>
-
-        <profile>
-            <id>STAGING</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>3.1.2</version>
-                        <configuration>
-                            <!-- Run TestNG xml file -->
-                            <suiteXmlFiles>
-                                <suiteXmlFile>src/test/resources/env-staging.nopCommerce.xml</suiteXmlFile>
-                            </suiteXmlFiles>
-
-                            <!-- Argument -->
-                            <argLine>
-                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
-                            </argLine>
-                        </configuration>
-
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-
-    </profiles>
-
-
 
 </project>

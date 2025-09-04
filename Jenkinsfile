@@ -39,7 +39,7 @@ pipeline {
                             bat "mvn clean test -DsuiteXmlFile=testng-smoke.xml"
                          } else if (env.BRANCH_NAME == 'staging') {
                             bat "mvn clean test -DsuiteXmlFile=testng-regression.xml"
-                         } else if (env.BRANCH_NAME == 'prod') {
+                         } else if (env.BRANCH_NAME == 'master') {
                             bat "mvn clean test -DsuiteXmlFile=testng-full.xml"
                          } else {
                            bat "mvn clean test -DsuiteXmlFile=testng-smoke.xml"

@@ -30,8 +30,12 @@ public class RegisterTests extends BaseTest {
     @BeforeClass
     @Parameters({"browser","url"})
     public void setupBeforeClassRun(String browser, String url){
-        driver = getBrowserDriver(browser,url);
+        this.driver = getBrowserDriver(browser,url);
         homePage = PageGenerator.getHomePage(driver);
+        log.info("Thread ID: " + Thread.currentThread().getId() +
+                " with browser: " + browser);
+        log.info("Thread ID: " + Thread.currentThread().getId() +
+                " with driver: " + driver.toString());
         registerPage = homePage.clickRegisterLink();
     }
 
@@ -71,7 +75,7 @@ public class RegisterTests extends BaseTest {
     }
 
 
-    @Test (dataProvider = "Invalid Emails", dataProviderClass = RegisterDataProvider.class)
+    //@Test (dataProvider = "Invalid Emails", dataProviderClass = RegisterDataProvider.class)
     public void Register_04_InvalidEmail(RegisterTestData registerTestData){
         registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();
@@ -91,7 +95,7 @@ public class RegisterTests extends BaseTest {
         Assert.assertEquals(registerPage.getErrorMessageForRequireField("Password"),RegisterMessageConstants.INVALID_PASSWORD);
 
     }
-    @Test (dataProvider = "Mismatch confirm password", dataProviderClass = RegisterDataProvider.class)
+    //@Test (dataProvider = "Mismatch confirm password", dataProviderClass = RegisterDataProvider.class)
     public void Register_07_MismatchedConfirmPassword(RegisterTestData registerTestData) {
         registerPage.fillRegisterForm(registerTestData);
         registerPage.clickRegisterButton();

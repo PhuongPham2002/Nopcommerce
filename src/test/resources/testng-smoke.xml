@@ -12,9 +12,9 @@
         </parameter>
         <classes>
             <class name="commons.helpers.RegisterLoginHelper"/>
-            <class name="testcases.MyAccountTests"/>
+            <class name="testcases.LoginTests"/>
         </classes>
-        
     </test>
+
 
 </suite>

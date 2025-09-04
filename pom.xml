@@ -17,6 +17,7 @@
         <log4j.version>2.24.1</log4j.version>
         <aspectj.version>1.9.20</aspectj.version>
         <poi.version>5.3.0</poi.version>
+        <environment>dev</environment>
     </properties>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
@@ -92,7 +93,6 @@
             <version>4.7.0</version>
         </dependency>
     </dependencies>
-
     <build>
         <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
         <plugins>
@@ -109,11 +109,11 @@
             </plugin>
 
             <!-- Allure plugin -->
-            <plugin>
+            <!--plugin>
                 <groupId>io.qameta.allure</groupId>
                 <artifactId>allure-maven</artifactId>
                 <version>2.11.2</version>
-            </plugin>
+            </plugin-->
             <!-- Run test -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -122,7 +122,7 @@
                 <configuration>
                     <!-- Run TestNG xml file -->
                     <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/nopCommerce.xml</suiteXmlFile>
+                        <suiteXmlFile>src/test/resources/env-dev.nopCommerce.xml</suiteXmlFile>
                     </suiteXmlFiles>
 
                     <!-- Argument -->
@@ -132,9 +132,63 @@
                 </configuration>
 
             </plugin>
+
         </plugins>
 
     </build>
+    <profiles>
+        <profile>
+            <id>DEV</id>
+            <build>
+               <plugins>
+                   <plugin>
+                       <groupId>org.apache.maven.plugins</groupId>
+                       <artifactId>maven-surefire-plugin</artifactId>
+                       <version>3.1.2</version>
+                       <configuration>
+                           <!-- Run TestNG xml file -->
+                           <suiteXmlFiles>
+                               <suiteXmlFile>src/test/resources/env-dev.nopCommerce.xml</suiteXmlFile>
+                           </suiteXmlFiles>
+
+                           <!-- Argument -->
+                           <argLine>
+                               -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                           </argLine>
+                       </configuration>
+
+                   </plugin>
+               </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>STAGING</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>3.1.2</version>
+                        <configuration>
+                            <!-- Run TestNG xml file -->
+                            <suiteXmlFiles>
+                                <suiteXmlFile>src/test/resources/env-staging.nopCommerce.xml</suiteXmlFile>
+                            </suiteXmlFiles>
+
+                            <!-- Argument -->
+                            <argLine>
+                                -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                            </argLine>
+                        </configuration>
+
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+
+    </profiles>
 
 
 

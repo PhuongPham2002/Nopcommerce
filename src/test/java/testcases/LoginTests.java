@@ -5,7 +5,9 @@ import actions.pageObject.LoginPageObject;
 import actions.pageObject.PageGenerator;
 import commons.base.BaseTest;
 import commons.constants.LoginMessageConstants;
+import commons.helpers.PropertiesConfig;
 import data.helpers.LoginDataHelper;
+import org.apache.xmlbeans.SystemProperties;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -16,11 +18,13 @@ import org.testng.annotations.Test;
 public class LoginTests extends BaseTest {
     private HomePageObject homePage;
     private LoginPageObject loginPage;
+
     @BeforeClass
-    @Parameters({"browser","url"})
-    public void setupBeforeClassRun(String browser, String url) {
+    @Parameters({"browser","environment"})
+    public void setupBeforeClassRun(String browser, String serverName) {
         WebDriver driver;
-        driver = getBrowserDriver(browser,url);
+        PropertiesConfig.getProperties("appUrl",serverName);
+        driver = getBrowserDriver(browser,serverName);
         homePage = PageGenerator.getHomePage(driver);
         loginPage = homePage.clickLoginLink();
     }

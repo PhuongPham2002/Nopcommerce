@@ -27,24 +27,24 @@ pipeline {
                 script {
                        if (isUnix()) {
                          if (env.BRANCH_NAME == 'dev') {
-                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -Dtest"
+                            sh "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          } else if (env.BRANCH_NAME == 'staging') {
-                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          } else if (env.BRANCH_NAME == 'master') {
-                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          } else {
-                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV}"
+                            sh "mvn clean test -DtestEnv=${params.TEST_ENV} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          }
                     } else {
                         // Windows
                          if (env.BRANCH_NAME == 'dev') {
-                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          } else if (env.BRANCH_NAME == 'staging') {
-                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          } else if (env.BRANCH_NAME == 'master') {
-                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
+                            bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                          } else {
-                           bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV}"
+                           bat "mvn clean test -Dbrowser=${params.BROWSER} -DtestEnv=${params.TEST_ENV} -DsuiteXmlFile=${params.SUITE}"
                         }
                     }
                 }

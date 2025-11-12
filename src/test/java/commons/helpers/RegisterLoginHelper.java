@@ -25,7 +25,7 @@ public class RegisterLoginHelper extends BaseTest {
     }
     @BeforeTest
     public void preconditionBeforeTest(){
-        getBrowserDriver()
+        getBrowserDriver();
         homePage = PageGenerator.getHomePage(getDriver());
         registerPage = homePage.clickRegisterLink();
 

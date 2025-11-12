@@ -1,10 +1,10 @@
 pipeline {
 	agent any
 	parameters {
-	choice(name: 'RUN_MODE', choices: ['single','cross'],defaultValue:single, description: 'Chạy 1 browser hay cross-browser?')
-	choice(name:'SUITE', choices:['testng-smoke.xml','testng-regression.xml'],defaultValue:testng-smoke.xml,description:'choose test suite to run')
-	choice(name:'BROWSER', choices:['chrome','firefox','edge'],defaultValue:chrome, description:'Choose browser to run test')
-    choice(name: 'TEST_ENV', choices: ['dev','staging','production'],defaultValue:dev, description: 'Choose testing environment to run test')
+	choice(name: 'RUN_MODE', choices: ['single','cross'],description: 'Chạy 1 browser hay cross-browser?')
+	choice(name:'SUITE', choices:['testng-smoke.xml','testng-regression.xml'],description:'choose test suite to run')
+	choice(name:'BROWSER', choices:['chrome','firefox','edge'], description:'Choose browser to run test')
+    choice(name: 'TEST_ENV', choices: ['dev','staging','production'], description: 'Choose testing environment to run test')
     booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Chạy headless mod')
 	}
 	stages {

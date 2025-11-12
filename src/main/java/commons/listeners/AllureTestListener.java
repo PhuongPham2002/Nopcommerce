@@ -1,5 +1,6 @@
 package commons.listeners;
 
+import commons.base.BasePage;
 import commons.base.BaseTest;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;

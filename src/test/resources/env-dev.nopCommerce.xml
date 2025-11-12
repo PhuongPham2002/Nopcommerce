@@ -2,25 +2,22 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="NonCommerce" parallel="true" thread-count="2">
     <test name="Run on Chrome">
-        <parameter name="browser" value="chrome"/>
-        <!--groups>
+        <groups>
             <run>
-                <include name="sanity"/>
+                <include name="test"/>
             </run>
-        </groups-->
-
+        </groups>
         <classes>
             <!--class name="commons.helpers.RegisterLoginHelper"/-->
-            <!--class name="testcases.SortTests"/-->
-            <class name="testcases.Test_EnvConfig"/>
+            <class name="testcases.RegisterTests"/>
+            <!--class name="testcases.Test_EnvConfig"/-->
         </classes>
 
     </test>
 
-    <test name="Run Login">
-        <parameter name="browser" value="firefox"/>
+    <test name="Run on FireFox">
         <classes>
-            <class name="testcases.Test_Paralell"/>
+            <class name="testcases.LoginTests"/>
         </classes>
     </test>
 

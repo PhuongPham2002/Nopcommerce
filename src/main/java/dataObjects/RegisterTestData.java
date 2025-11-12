@@ -4,14 +4,46 @@ import com.poiji.annotation.ExcelCellName;
 import com.poiji.annotation.ExcelSheet;
 import lombok.Getter;
 import lombok.Setter;
+import net.bytebuddy.pool.TypePool;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @ExcelSheet("RegisterData")
-@Getter
 public class RegisterTestData {
+
     @ExcelCellName("firstName")
     private String firstName;
     @ExcelCellName("lastName")
     private String lastName;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
     @ExcelCellName("Email")
     private String emailAddress;
     @ExcelCellName("CompanyName")
@@ -31,6 +63,9 @@ public class RegisterTestData {
     public static Builder builder(){
         return new Builder();
     }
+
+
+
 
     public static class Builder{
         private String firstName;

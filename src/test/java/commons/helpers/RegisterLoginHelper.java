@@ -3,16 +3,11 @@ package commons.helpers;
 import actions.pageObject.*;
 import actions.pageObject.PageGenerator;
 import commons.base.BaseTest;
-import data.helpers.RegisterDataHelper;
-import lombok.Getter;
-import lombok.Setter;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
 
-import java.util.HashSet;
 import java.util.Set;
 
 

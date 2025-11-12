@@ -8,17 +8,15 @@ import org.testng.Assert;
 
 @Slf4j
 public class MyProductReviewsComponent extends BasePage {
-    WebDriver driver;
 
     public MyProductReviewsComponent(WebDriver driver) {
-
-        this.driver = driver;
+        super(driver);
     }
 
 
     public boolean isNumberOfProductReviewAtLeastOne() {
-        waitForListElementsVisible(driver,MyProductReviewsPageUI.PRODUCT_ITEM_REVIEW_TITLE_TEXT);
-        int size = getListElementsSize(driver,MyProductReviewsPageUI.PRODUCT_ITEM_REVIEW_TITLE_TEXT);
+        waitForListElementsVisible(MyProductReviewsPageUI.PRODUCT_ITEM_REVIEW_TITLE_TEXT);
+        int size = getListElementsSize(MyProductReviewsPageUI.PRODUCT_ITEM_REVIEW_TITLE_TEXT);
         return size>=1;
     }
 }

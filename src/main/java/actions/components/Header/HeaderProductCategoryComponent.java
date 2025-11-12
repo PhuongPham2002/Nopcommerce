@@ -10,19 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HeaderProductCategoryComponent extends BasePage {
-    WebDriver driver;
 
     public HeaderProductCategoryComponent(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
-
     public void hoverToHeaderProductCategory(String productCategory) {
-        waitForElementVisible(driver,HeaderProductCategoryComponentUI.DYNAMIC_PRODUCT_CATEGORY_HEADER,productCategory);
-        hoverToElement(driver, HeaderProductCategoryComponentUI.DYNAMIC_PRODUCT_CATEGORY_HEADER,productCategory);
-
+        waitForElementVisible(HeaderProductCategoryComponentUI.DYNAMIC_PRODUCT_CATEGORY_HEADER,productCategory);
+        hoverToElement( HeaderProductCategoryComponentUI.DYNAMIC_PRODUCT_CATEGORY_HEADER,productCategory);
     }
     public void waitForSubProductCategoryVisible(String subProductCategory){
-        waitForElementVisible(driver,HeaderProductCategoryComponentUI.DYNAMIC_SUB_PRODUCT_CATEGORY_LINK,subProductCategory);
+        waitForElementVisible(HeaderProductCategoryComponentUI.DYNAMIC_SUB_PRODUCT_CATEGORY_LINK,subProductCategory);
     }
 
 
@@ -46,7 +43,6 @@ public class HeaderProductCategoryComponent extends BasePage {
         Map<String, Class<? extends BasePage>> apparelMap = new HashMap<String, Class<? extends BasePage>>();
         electronicsMap.put("shoes", ShoesPageObject.class);
         electronicsMap.put("clothing", ClothingPageObject.class);
-        electronicsMap.put("accessories", AccessoriesPageObject.class);
         log.info("ApparelMap value: "+electronicsMap);
 
         categoryMap.put("computers",computersMap);
@@ -55,8 +51,8 @@ public class HeaderProductCategoryComponent extends BasePage {
         log.info("CategoryMap value: "+ categoryMap);
 
 
-        waitForElementClickable(driver, HeaderProductCategoryComponentUI.DYNAMIC_SUBMENU_LINK,subProductCategory);
-        clickElement(driver,HeaderProductCategoryComponentUI.DYNAMIC_SUBMENU_LINK,subProductCategory);
+        waitForElementClickable( HeaderProductCategoryComponentUI.DYNAMIC_SUBMENU_LINK,subProductCategory);
+        clickElement(HeaderProductCategoryComponentUI.DYNAMIC_SUBMENU_LINK,subProductCategory);
         Map<String, Class<? extends BasePage>> subCategoryMap = categoryMap.get(productCategory.toLowerCase());
 
         if (subCategoryMap==null){

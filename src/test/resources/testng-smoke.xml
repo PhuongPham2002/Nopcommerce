@@ -7,7 +7,7 @@
     </listeners>
     <test name="Smoke Test">
         <classes>
-            <class name="commons.helpers.RegisterLoginHelper"/>
+            <!--class name="commons.helpers.RegisterLoginHelper"/-->
             <class name="testcases.LoginTests"/>
         </classes>
     </test>

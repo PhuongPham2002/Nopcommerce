@@ -5,18 +5,17 @@ import actions.components.Header.HeaderComponent;
 import actions.components.NotificationBarComponent;
 import actions.components.SortProductComponent;
 import commons.base.BasePage;
-import commons.helpers.WaitHelper;
+
 import interfaces.pageUI.NotebooksPageUI;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Wait;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class NotebooksPageObject extends BasePage {
-    WebDriver driver;
     public SortProductComponent sort;
     public DisplayProductComponent display;
     public HeaderComponent header;
@@ -24,7 +23,7 @@ public class NotebooksPageObject extends BasePage {
 
     public final static String SUCCESSFUL_MESSAGE_ADD_TO_COMPARE ="The product has been added to your product comparison";
     public NotebooksPageObject(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         this.sort = new SortProductComponent(driver);
         this.display = new DisplayProductComponent(driver);
         this.notificationBar= new NotificationBarComponent(driver);
@@ -35,9 +34,9 @@ public class NotebooksPageObject extends BasePage {
         sort.selectSortOption(sortOption);
     }
     public boolean isProductNameSortedByAscending() {
-        WaitHelper.waitForLoadingScreenInvisible(driver);
-        waitForListElementsVisible(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
-        List<WebElement> allNotebooksProduct = getListElement(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        waitForLoadingScreenInvisible();
+        waitForListElementsVisible( interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        List<WebElement> allNotebooksProduct = getListElement( interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
         List<String> allNotebooksProductName = new ArrayList<>();
         for (WebElement notebookProduct:allNotebooksProduct){
             allNotebooksProductName.add(notebookProduct.getText());}
@@ -48,9 +47,9 @@ public class NotebooksPageObject extends BasePage {
 
 
     public boolean isProductNameSortedByDescending() {
-        WaitHelper.waitForLoadingScreenInvisible(driver);
-        waitForListElementsVisible(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
-        List<WebElement> allNotebooksProduct = getListElement(driver, interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        waitForLoadingScreenInvisible();
+        waitForListElementsVisible( interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        List<WebElement> allNotebooksProduct = getListElement( interfaces.pageUI.NotebooksPageUI.PRODUCT_TITLE_TEXT);
         log.info("Product size before sorting: " + allNotebooksProduct.size());
         List<String> allNotebooksProductName = new ArrayList<>();
         for (WebElement notebookProduct:allNotebooksProduct){
@@ -65,9 +64,9 @@ public class NotebooksPageObject extends BasePage {
     }
 
     public boolean isProductPriceSortedByAscending() {
-        WaitHelper.waitForLoadingScreenInvisible(driver);
-        waitForListElementsVisible(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
-        List<WebElement> allNotebooksProduct = getListElement(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
+        waitForLoadingScreenInvisible();
+        waitForListElementsVisible( NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
+        List<WebElement> allNotebooksProduct = getListElement( NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
         log.info("Product size before sorting: " + allNotebooksProduct.size());
         List<String> allNotebooksProductPrice = new ArrayList<>();
         for (WebElement notebookProduct:allNotebooksProduct){
@@ -83,9 +82,9 @@ public class NotebooksPageObject extends BasePage {
     }
 
     public boolean isProductPriceSortedByDescending() {
-        WaitHelper.waitForLoadingScreenInvisible(driver);
-        waitForListElementsVisible(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
-        List<WebElement> allNotebooksProduct = getListElement(driver, NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
+        waitForLoadingScreenInvisible();
+        waitForListElementsVisible( NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
+        List<WebElement> allNotebooksProduct = getListElement( NotebooksPageUI.DYNAMIC_PRODUCT_PRICE_TEXT);
         List<String> allNotebooksProductPrice = new ArrayList<>();
         for (WebElement notebookProduct:allNotebooksProduct){
             allNotebooksProductPrice.add(notebookProduct.getText().substring(1));}
@@ -99,77 +98,77 @@ public class NotebooksPageObject extends BasePage {
     }
 
     public boolean isProductListSizeEqualTo (int numberOfDisplayedProducts) {
-        WaitHelper.waitForLoadingScreenInvisible(driver);
-        waitForNumberOfElementsTobe(driver,NotebooksPageUI.ITEM_BOX_GRID,numberOfDisplayedProducts);
-        //waitForListElementsVisible(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        waitForLoadingScreenInvisible();
+        waitForNumberOfElementsTobe(NotebooksPageUI.ITEM_BOX_GRID,numberOfDisplayedProducts);
+        //waitForListElementsVisible(NotebooksPageUI.PRODUCT_TITLE_TEXT);
         //SAU NÀY IMPLEMENT THÊM FLUENT WAIT SAU CHO LAYOUT (GRID CO LẠI HOÀN TOÀN)
-        waitForNumberOfElementsTobe(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT,numberOfDisplayedProducts);
-        log.info("Số lượng sản phẩm hiển thị: "+ getListElementsSize(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT));
-        return getListElementsSize(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT) == numberOfDisplayedProducts;
+        waitForNumberOfElementsTobe(NotebooksPageUI.PRODUCT_TITLE_TEXT,numberOfDisplayedProducts);
+        log.info("Số lượng sản phẩm hiển thị: "+ getListElementsSize(NotebooksPageUI.PRODUCT_TITLE_TEXT));
+        return getListElementsSize(NotebooksPageUI.PRODUCT_TITLE_TEXT) == numberOfDisplayedProducts;
     }
 
     public boolean isProductListSizeAtMost (int expectedSize){
-        WaitHelper.waitForLoadingScreenInvisible(driver);
-        waitForListElementsVisible(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT);
-        log.info("Số lượng sản phẩm hiển thị: "+ getListElementsSize(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT));
-        return getListElementsSize(driver,NotebooksPageUI.PRODUCT_TITLE_TEXT) <= expectedSize;
+        waitForLoadingScreenInvisible();
+        waitForListElementsVisible(NotebooksPageUI.PRODUCT_TITLE_TEXT);
+        log.info("Số lượng sản phẩm hiển thị: "+ getListElementsSize(NotebooksPageUI.PRODUCT_TITLE_TEXT));
+        return getListElementsSize(NotebooksPageUI.PRODUCT_TITLE_TEXT) <= expectedSize;
     }
 
     public boolean isPaginationNextIconDisplayed() {
-        return getListElementsSize(driver,NotebooksPageUI.PAGINATION_NEXT_ICON)>0 && isElementDisplayed(driver,NotebooksPageUI.PAGINATION_NEXT_ICON);
+        return getListElementsSize(NotebooksPageUI.PAGINATION_NEXT_ICON)>0 && isElementDisplayed(NotebooksPageUI.PAGINATION_NEXT_ICON);
     }
 
     public boolean isPaginationAtPageOne(int pageNumber) {
-        getElementText(driver,NotebooksPageUI.CURRENT_PAGE,String.valueOf(pageNumber));
-        return getElementText(driver,NotebooksPageUI.CURRENT_PAGE,String.valueOf(pageNumber)).equals(String.valueOf(pageNumber));
+        getElementText(NotebooksPageUI.CURRENT_PAGE,String.valueOf(pageNumber));
+        return getElementText(NotebooksPageUI.CURRENT_PAGE,String.valueOf(pageNumber)).equals(String.valueOf(pageNumber));
 
     }
 
     public void clickPageNumber(int pageNumber) {
-        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_PAGINATION_PAGE_BY_NUMBER,String.valueOf(pageNumber));
-        clickElement(driver,NotebooksPageUI.DYNAMIC_PAGINATION_PAGE_BY_NUMBER,String.valueOf(pageNumber));
-        waitForLoadingScreenInvisible(driver);
+        waitForElementClickable(NotebooksPageUI.DYNAMIC_PAGINATION_PAGE_BY_NUMBER,String.valueOf(pageNumber));
+        clickElement(NotebooksPageUI.DYNAMIC_PAGINATION_PAGE_BY_NUMBER,String.valueOf(pageNumber));
+        waitForLoadingScreenInvisible();
     }
 
 
     public boolean isPaginationPreviousIconDisplayed() {
-        waitForElementVisible(driver,NotebooksPageUI.PAGINATION_PREVIOUS_ICON);
-        return isElementDisplayed(driver,NotebooksPageUI.PAGINATION_PREVIOUS_ICON);
+        waitForElementVisible(NotebooksPageUI.PAGINATION_PREVIOUS_ICON);
+        return isElementDisplayed(NotebooksPageUI.PAGINATION_PREVIOUS_ICON);
     }
 
 
     public void selectProductPerPageDropdown(int displayOption) {
         display.selectProductsDisplayOption(displayOption);
-        waitForLoadingScreenInvisible(driver);
+        waitForLoadingScreenInvisible();
 
     }
 
     public ProductDetailPageObject clickProduct(String productName) {
         //waitForLoadingIconInvisible(driver);
-        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
-        clickElement(driver,NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
+        waitForElementClickable(NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
+        clickElement(NotebooksPageUI.DYNAMIC_PRODUCT_TITLE,productName);
         return PageGenerator.getProductDetailPage(driver);
     }
 
     public void clickAddProductToCompareListButton(String productName) {
-        waitForLoadingIconInvisible(driver);
-        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_ADD_TO_COMPARE_BUTTON,productName);
-        clickElement(driver,NotebooksPageUI.DYNAMIC_ADD_TO_COMPARE_BUTTON,productName);
+        waitForLoadingIconInvisible();
+        waitForElementClickable(NotebooksPageUI.DYNAMIC_ADD_TO_COMPARE_BUTTON,productName);
+        clickElement(NotebooksPageUI.DYNAMIC_ADD_TO_COMPARE_BUTTON,productName);
     }
 
     public String getSuccessfulMessageForAddingProductsToComparisonList() {
-        waitForLoadingIconInvisible(driver);
-        waitForTextToBePresentInElement(driver,NotebooksPageUI.SUCCESSFUL_MESSAGE_ADD_TO_COMPARE,SUCCESSFUL_MESSAGE_ADD_TO_COMPARE);
-        return getElementText(driver,NotebooksPageUI.SUCCESSFUL_MESSAGE_ADD_TO_COMPARE);
+        waitForLoadingIconInvisible();
+        waitForTextToBePresentInElement(NotebooksPageUI.SUCCESSFUL_MESSAGE_ADD_TO_COMPARE,SUCCESSFUL_MESSAGE_ADD_TO_COMPARE);
+        return getElementText(NotebooksPageUI.SUCCESSFUL_MESSAGE_ADD_TO_COMPARE);
     }
 
     public void clickAddToCartButton(String productName) {
-        waitForElementClickable(driver,NotebooksPageUI.DYNAMIC_ADD_TO_CART_BUTTON,productName);
-        clickElement(driver,NotebooksPageUI.DYNAMIC_ADD_TO_CART_BUTTON,productName);
+        waitForElementClickable(NotebooksPageUI.DYNAMIC_ADD_TO_CART_BUTTON,productName);
+        clickElement(NotebooksPageUI.DYNAMIC_ADD_TO_CART_BUTTON,productName);
     }
 
     public ShoppingCartPageObject clickShoppingCartLinkFromHeader() {
-        WaitHelper.waitForLoadingIconInvisible(driver);
+        waitForLoadingIconInvisible();
         notificationBar.closeNotification();
         header.account.clickShoppingCartLink();
         return PageGenerator.getShoppingCartPage(driver);

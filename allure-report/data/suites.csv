@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","2499","Register_01_RegisterWithValidRequiredField","Default Suite","Wed Nov 12 15:27:47 ICT 2025","passed","Wed Nov 12 15:27:49 ICT 2025","testcases.RegisterTests","Nopcommerce-TestNG","testcases.RegisterTests","Register_01_RegisterWithValidRequiredField"
+"","31363","Register_05_ExistedEmail","Default Suite","Fri Oct 31 10:41:44 ICT 2025","broken","Fri Oct 31 10:42:15 ICT 2025","testcases.RegisterTests","Nopcommerce-TestNG","testcases.RegisterTests","Register_05_ExistedEmail"
+"","2276","Register_02_RegisterWithValidRequiredFieldAndGenderSelection","Default Suite","Wed Nov 12 15:27:49 ICT 2025","passed","Wed Nov 12 15:27:52 ICT 2025","testcases.RegisterTests","Nopcommerce-TestNG","testcases.RegisterTests","Register_02_RegisterWithValidRequiredFieldAndGenderSelection"
+"","215","Register_03_EmptyData_Validation","Default Suite","Fri Oct 31 10:41:43 ICT 2025","passed","Fri Oct 31 10:41:44 ICT 2025","testcases.RegisterTests","Nopcommerce-TestNG","testcases.RegisterTests","Register_03_EmptyData_Validation"

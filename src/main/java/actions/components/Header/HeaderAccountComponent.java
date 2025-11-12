@@ -5,40 +5,39 @@ import interfaces.componentUI.header.HeaderAccountComponentUI;
 import org.openqa.selenium.WebDriver;
 
 public class HeaderAccountComponent extends BasePage {
-    WebDriver driver;
 
     public HeaderAccountComponent(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
     public void clickWishListLink() {
-        waitForElementClickable(driver, HeaderAccountComponentUI.WISHLIST_LINK);
-        clickElement(driver, HeaderAccountComponentUI.WISHLIST_LINK);
+        waitForElementClickable( HeaderAccountComponentUI.WISHLIST_LINK);
+        clickElement( HeaderAccountComponentUI.WISHLIST_LINK);
     }
 
     public void clickShoppingCartLink() {
-        waitForElementClickable(driver, HeaderAccountComponentUI.SHOPPING_CART_LINK);
-        clickElement(driver, HeaderAccountComponentUI.SHOPPING_CART_LINK);
+        waitForElementClickable( HeaderAccountComponentUI.SHOPPING_CART_LINK);
+        clickElement( HeaderAccountComponentUI.SHOPPING_CART_LINK);
     }
     public void hoverToShoppingCart(){
-        hoverToElement(driver,HeaderAccountComponentUI.SHOPPING_CART_LINK);
+        hoverToElement(HeaderAccountComponentUI.SHOPPING_CART_LINK);
     }
 
     public void clickRegisterLink(){
-        waitForElementClickable(driver,HeaderAccountComponentUI.REGISTER_LINK);
-        clickElement(driver,HeaderAccountComponentUI.REGISTER_LINK);
+        waitForElementClickable(HeaderAccountComponentUI.REGISTER_LINK);
+        clickElement(HeaderAccountComponentUI.REGISTER_LINK);
     }
     public void clickLogoutLink(){
-        waitForElementClickable(driver,HeaderAccountComponentUI.LOGOUT_LINK);
-        clickElement(driver,HeaderAccountComponentUI.LOGOUT_LINK);
+        waitForElementClickable(HeaderAccountComponentUI.LOGOUT_LINK);
+        clickElement(HeaderAccountComponentUI.LOGOUT_LINK);
     }
     public void clickLoginLink(){
-        waitForElementClickable(driver,HeaderAccountComponentUI.LOGIN_LINK);
-        clickElement(driver,HeaderAccountComponentUI.LOGIN_LINK);
+        waitForElementClickable(HeaderAccountComponentUI.LOGIN_LINK);
+        clickElement(HeaderAccountComponentUI.LOGIN_LINK);
     }
 
     public void clickMyAccountLink(){
-        waitForElementClickable(driver,HeaderAccountComponentUI.ACCOUNT_LINK);
-        clickElement(driver,HeaderAccountComponentUI.ACCOUNT_LINK);
+        waitForElementClickable(HeaderAccountComponentUI.ACCOUNT_LINK);
+        clickElement(HeaderAccountComponentUI.ACCOUNT_LINK);
     }
 
 }

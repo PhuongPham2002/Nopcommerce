@@ -11,7 +11,7 @@ public class HeaderComponent extends BasePage {
     public HeaderCartToolTipComponent cartToolTip;
 
     public HeaderComponent(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
         this.account = new HeaderAccountComponent(driver);
         this.productCategory = new HeaderProductCategoryComponent(driver);
         this.search = new HeaderSearchComponent(driver);

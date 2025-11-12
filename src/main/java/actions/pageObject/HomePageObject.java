@@ -4,16 +4,13 @@ import actions.components.Header.HeaderComponent;
 import actions.components.MyAccountSideBar.MyAccountSideBarPageObject;
 import commons.base.BasePage;
 import interfaces.pageUI.HomePageUI;
+import interfaces.pageUI.LoginPageUI;
 import org.openqa.selenium.WebDriver;
 
 public class HomePageObject extends BasePage {
-    WebDriver driver;
     HeaderComponent header;
-
-
     public HomePageObject(WebDriver driver) {
-
-        this.driver = driver;
+        super(driver);
         this.header = new HeaderComponent(driver);
     }
 
@@ -24,8 +21,8 @@ public class HomePageObject extends BasePage {
     }
 
     public String getSuccessfulRegisterMessage() {
-        waitForElementVisible(driver,HomePageUI.SUCCESSFUL_REGISTER_MESSAGE);
-        return getElementText(driver,HomePageUI.SUCCESSFUL_REGISTER_MESSAGE);
+        waitForElementVisible(HomePageUI.SUCCESSFUL_REGISTER_MESSAGE);
+        return getElementText(HomePageUI.SUCCESSFUL_REGISTER_MESSAGE);
     }
 
     public LoginPageObject clickLoginLink() {
@@ -43,5 +40,11 @@ public class HomePageObject extends BasePage {
         header.productCategory.waitForSubProductCategoryVisible(subProductCategory);
         return header.productCategory.clickSubProductCategory(productCategory,subProductCategory);
     }
+
+    public boolean isMyAccountLinkVisible(){
+        waitForElementVisible( LoginPageUI.MY_ACCOUNT_LINK);
+        return isElementDisplayed(LoginPageUI.MY_ACCOUNT_LINK);
+    }
+
 
 }

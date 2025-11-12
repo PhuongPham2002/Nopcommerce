@@ -24,9 +24,9 @@ public class RegisterLoginHelper extends BaseTest {
         return nopCommerceCookie;
     }
     @BeforeTest
-    public void preconditionBeforeTest(String browser, String url){
-        driver = getBrowserDriver();
-        homePage = PageGenerator.getHomePage(driver);
+    public void preconditionBeforeTest(){
+        getBrowserDriver()
+        homePage = PageGenerator.getHomePage(getDriver());
         registerPage = homePage.clickRegisterLink();
 
         //Register new account:

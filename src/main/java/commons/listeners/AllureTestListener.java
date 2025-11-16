@@ -16,9 +16,14 @@ public class AllureTestListener extends BaseTest implements ITestListener {
     }
 
     // Screenshot attachments for Allure
-    @Attachment(value = "Screenshot of {0}", type = "image/png")
-    public static byte[] saveScreenshotPNG(String testName, WebDriver driver) {
-        return (byte[]) ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//    @Attachment(value = "Screenshot of {0}", type = "image/png")
+//    public static byte[] saveScreenshotPNG(String testName, WebDriver driver) {
+//        return (byte[]) ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//    }
+
+    @Attachment(value = "Screenshot", type = "image/png")
+    public static byte[] takeScreenshot(WebDriver driver) {
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }
 
     // Text attachments for Allure

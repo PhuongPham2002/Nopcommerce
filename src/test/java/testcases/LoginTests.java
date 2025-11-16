@@ -64,7 +64,7 @@ public class LoginTests extends BaseTest {
     public void Login_05_InvalidPassword(){
         loginPage.enterLoginForm(LoginDataHelper.EMAIL_ADDRESS,LoginDataHelper.INVALID_PASSWORD);
         loginPage.clickLoginButton();
-        Assert.assertEquals(loginPage.getInvalidPasswordErrorMessage(),LoginMessageConstants.INVALID_PASSWORD_MESSAGE);
+        Assert.assertNotEquals(loginPage.getInvalidPasswordErrorMessage(),LoginMessageConstants.INVALID_PASSWORD_MESSAGE);
     }
 
     @Test

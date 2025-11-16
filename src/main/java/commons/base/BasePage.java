@@ -24,7 +24,6 @@ public class BasePage {
     protected WebDriver driver;
 
     public BasePage(WebDriver driver) {
-
         this.driver = driver;
     }
 
@@ -72,33 +71,39 @@ public class BasePage {
     //Actions
     public void clickElement(String rawLocator) {
         getElement(rawLocator).click();
+        log.info("Click: " + rawLocator);
     }
 
     public void clickElement(String dynamicLocatorTemplate, String... dynamicParts) {
         String locator = formatLocator(dynamicLocatorTemplate, dynamicParts);
         getElement(locator).click();
+        log.info("Click: " + formatLocator(dynamicLocatorTemplate, dynamicParts));
     }
 
     public void clickElement(WebElement element) {
         element.click();
+        log.info("Click: " + elementToShortString(element));
     }
 
     public void sendKeyToElement(String rawLocator, String valueToSend) {
         clearKeyInElement(rawLocator);
         getElement(rawLocator).sendKeys(valueToSend);
         getElement(rawLocator).sendKeys(Keys.TAB);
+        log.info("SendKeys: " + rawLocator + " → " + valueToSend);
     }
 
     public void sendKeyToElement(String dynamicLocatorTemplate, String valueToSend, String... dynamicParts) {
         clearKeyInElement(formatLocator(dynamicLocatorTemplate, dynamicParts));
         getElement(formatLocator(dynamicLocatorTemplate, dynamicParts)).sendKeys(valueToSend);
         getElement(formatLocator(dynamicLocatorTemplate, dynamicParts)).sendKeys(Keys.TAB);
+        log.info("SendKeys: " + formatLocator(dynamicLocatorTemplate, dynamicParts)+ " → " + valueToSend);
     }
 
     public void sendKeyToElement(WebElement element, String valueToSend) {
         clearKeyInElement(element);
         element.sendKeys(valueToSend);
         element.sendKeys(Keys.TAB);
+        log.info("SendKeys: " + elementToShortString(element)+ " → " + valueToSend);
     }
 
     public void clearKeyInElement(String rawLocator) {
@@ -109,7 +114,6 @@ public class BasePage {
     public void clearKeyInElement(String dynamicLocatorTemplate, String... dynamicParts) {
         getElement(formatLocator(dynamicLocatorTemplate, dynamicParts)).sendKeys(Keys.CONTROL + "a");
         getElement(formatLocator(dynamicLocatorTemplate, dynamicParts)).sendKeys(Keys.DELETE);
-
     }
 
     public void clearKeyInElement(WebElement element) {
@@ -118,10 +122,12 @@ public class BasePage {
     }
 
     public String getElementText(String rawLocator) {
+        log.info("GetText: "+ rawLocator +  " → " + getElement(rawLocator).getText());
         return getElement(rawLocator).getText();
     }
 
     public String getElementText(String dynamicLocatorTemplate, String... dynamicParts) {
+        log.info("GetText: "+formatLocator(dynamicLocatorTemplate,dynamicParts)+ " → " + getElement(formatLocator(dynamicLocatorTemplate,dynamicParts)).getText());
         return getElement(formatLocator(dynamicLocatorTemplate, dynamicParts)).getText();
 
     }
@@ -307,7 +313,7 @@ public class BasePage {
 
     public void uncheckNativeRadio(WebElement element) {
         if (element.isSelected()) {
-           element.click();
+            element.click();
         }
     }
 
@@ -422,6 +428,7 @@ public class BasePage {
     public boolean isElementEnable(String locator) {
         return getElement(locator).isEnabled();
     }
+
     public boolean isElementEnable(WebElement element) {
         return element.isEnabled();
     }
@@ -429,6 +436,7 @@ public class BasePage {
     public boolean isElementSelected(String locator) {
         return getElement(locator).isSelected();
     }
+
     public boolean isElementSelected(WebElement element) {
         return element.isSelected();
     }
@@ -638,9 +646,26 @@ public class BasePage {
     public void waitForLoadingIconInvisible() {
         waitForElementInvisible(BasePageUI.LOADING_ICON);
     }
+
     public void waitForLoadingScreenInvisible() {
 
         waitForElementInvisible(BasePageUI.LOADING_SCREEN);
+    }
+
+
+    private String elementToShortString(WebElement element) {
+        String raw = element.toString();
+
+        // Example raw:
+        // [[ChromeDriver: chrome]] -> xpath: //button[@id='login']
+        if (raw.contains("->")) {
+            raw = raw.substring(raw.indexOf("->") + 3, raw.length() - 1);
+            // result: xpath: //button[@id='login']
+        } else {
+            // fallback
+            raw = "tag=" + element.getTagName() + ", text=" + element.getText();
+        }
+        return raw.trim();
     }
 
 

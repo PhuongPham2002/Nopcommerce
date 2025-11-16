@@ -6,6 +6,7 @@ import interfaces.enums.EnvironmentType;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.ThreadContext;
 import org.apache.xmlbeans.SystemProperties;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -13,18 +14,18 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 import org.testng.Assert;
-import org.testng.annotations.BeforeSuite;
+import org.testng.ITestResult;
+import org.testng.annotations.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BaseTest {
 
-    protected final Logger log;
-    public BaseTest() {
-        log = LogManager.getLogger(getClass());
-    }
+    protected Logger log;
     public final static String ENV_NAME = SystemProperties.getProperty("testEnv","dev");
     public final static String BROWSER_NAME = SystemProperties.getProperty("browser","Chrome");
     private final static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -189,5 +190,46 @@ public class BaseTest {
 
         }
     }
+
+    @BeforeSuite(alwaysRun = true)
+    public void beforeSuite() {
+        log = LogManager.getLogger("Suite");
+        new File("target/logs").mkdirs();
+        log.info("SUITE START");
+    }
+
+    @BeforeClass(alwaysRun = true)
+    public void beforeClass() {
+        // logger phải lấy theo context chứ không lấy theo class
+        log = LogManager.getLogger(getClass());
+        log.info("CLASS START: " + this.getClass().getSimpleName());
+    }
+
+
+    @BeforeMethod
+    public void beforeMethod(Method method) {
+        log = LogManager.getLogger(method.getName());
+        log.info("START TEST: " + method.getName());
+    }
+
+    @AfterMethod
+    public void afterMethod(ITestResult result) {
+        if(result.getStatus() == ITestResult.FAILURE) {
+            log.error("TEST FAILED: " + result.getThrowable() );
+        } else {
+            log.info("TEST PASSED");
+        }
+        log.info("END TEST");
+    }
+    @AfterClass(alwaysRun = true)
+    public void afterClass() {
+        log = LogManager.getLogger(this.getClass());
+        log.info("CLASS END: " + this.getClass().getSimpleName());
+    }
+    @AfterSuite(alwaysRun = true)
+    public void afterSuite() {
+        log.info("SUITE END");
+    }
+
 
 }
